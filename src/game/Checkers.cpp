@@ -8,6 +8,7 @@
 // Our Includes
 #include "board.h"
 #include "checkers_logic.h"
+#include "constants.h"
 
 using std::cout;
 using std::cerr;
@@ -15,5 +16,7 @@ using std::endl;
 
 
 int main(int argc, char* argv[]) {
-    cout << "Hello World" << endl;
+    // declare board object
+    Board checkers_board(standard_checkers_length, standard_checkers_height);
+
 }
