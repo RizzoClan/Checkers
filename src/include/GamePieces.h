@@ -9,25 +9,13 @@
 
 // Our Includes
 
-// enum for game pieces, can use class to add to the enum
-// starts off including some common types of game pieces
-// enum class GamePieces {
-//     Red,
-//     Black,
-//     White,
-//     Pawn,
-//     Bishop,
-//     Knight,
-//     Rook,
-//     Queen,
-//     King
-// };
-
-
 class Piece {
     public:
         /************************************************ Constructors ***********************************************/
-        Piece(const int start_x, const int start_y, std::string type);
+        //@Arg type: int representing the piece's type
+        //@Note: Recommend upper level to map piece types to enum class
+        Piece(const int start_x, const int start_y, const int type=0);
+        virtual ~Piece();
 
         /******************************************** Getters and Setters ********************************************/
         const int get_x() const;
@@ -40,7 +28,7 @@ class Piece {
         int pos_x, pos_y;
 
         // containins the piece's type (i.e. pawn, rook, king... or red, black)
-        std::string piece_type;
+        int piece_type;
 
 };
 

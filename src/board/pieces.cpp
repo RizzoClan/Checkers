@@ -1,8 +1,8 @@
-#include "game_piece.h"
+#include "GamePieces.h"
 
 
 /****************************************** Constructors *****************************************/
-Piece::Piece(const int start_x, const int start_y, std::string type)
+Piece::Piece(const int start_x, const int start_y, const int type)
     : pos_x(start_x)
     , pos_y(start_y)
     , piece_type(type)

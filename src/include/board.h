@@ -8,7 +8,7 @@
 // 3rd Party Includes
 
 // Our Includes
-#include "game_piece.h"
+#include "GamePieces.h"
 
 class Board {
     public:
