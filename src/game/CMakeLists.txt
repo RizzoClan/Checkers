@@ -3,4 +3,6 @@ project (Checkers)
 
 add_executable(Checkers
     Checkers.cpp
+    board.cpp
+    checkers_logic.cpp
 )
