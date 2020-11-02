@@ -19,4 +19,6 @@ int main(int argc, char* argv[]) {
     // declare board object
     Board checkers_board(standard_checkers_length, standard_checkers_height);
 
+    cout << "Starting Board: " << endl << checkers_board << endl;
+
 }
