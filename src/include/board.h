@@ -1,6 +1,15 @@
 #ifndef BOARD_H
 #define BOARD_H
 
+// Standard Includes
+#include <string>
+#include <sstream>
+
+// 3rd Party Includes
+
+// Our Includes
+#include "game_piece.h"
+
 class Board {
     public:
         /************************************************ Constructors ***********************************************/
