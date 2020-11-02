@@ -17,7 +17,6 @@ Board::Board(const int new_length, const int new_height)
 
 
 Board::~Board() {
-
 }
 
 /******************************************** Getters and Setters ********************************************/
@@ -44,27 +43,27 @@ const std::vector<std::vector<int>>& Board::getBoard() const {
 
 /********************************************* Board Functions  *********************************************/
 std::ostream& operator<<(std::ostream& os, const Board this_board) {
+    // multiply by 4 because each cell has "| # ...|"
+    // extra on right is to round off border
+    std::string top_bot_border {std::string(this_board.getLength()*4, '-') + '-'};
+
     for(auto& col : this_board.getBoard()) {
         // print the top border between rows (print the char for each col)
-        os << std::string(this_board.getLength(), '-') << endl;
+        os << top_bot_border << endl;
 
         for (auto& piece : col) {
-            os << "| " << piece;
+            os << "| " << piece << " ";
         }
 
         // print right most border when done with line
-        os << " |" << endl;
+        os << "|" << endl;
     }
     // print the bottom border at end
-    os << std::string(this_board.getLength(), '-') << endl;
+    os << top_bot_border << endl;
+
+    return os;
 }
 
 
 /********************************************* Helper Functions  *********************************************/
-/*
-bool Board::clearBoard() const {
-    for(auto& col : board_pieces) {
-    }
-}
-*/
 

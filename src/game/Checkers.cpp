@@ -21,4 +21,6 @@ int main(int argc, char* argv[]) {
 
     cout << "Starting Board: " << endl << checkers_board << endl;
 
+    // complete program
+    exit(EXIT_SUCCESS);
 }

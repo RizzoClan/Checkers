@@ -33,13 +33,7 @@ class Board {
         // board needs 2D array to represent all pieces
         const std::vector<std::vector<int>> board_pieces;
 
-        // helper functions
-        /**
-         * @Brief: Clear the board - the 2D vector
-         * @Return: 1 = failure, 0 = success
-         * @Note: Maybe not needed
-         */
-        // bool clearBoard() const;
+        /********************************************** Helper Fucntions **********************************************/
 
 };
 
