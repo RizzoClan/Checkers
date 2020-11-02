@@ -9,7 +9,7 @@ Board::Board(const int new_length, const int new_height)
     : length(new_length)
     , height(new_height)
     // create 2D vector initialized to 0
-    , board_pieces(std::vector<std::vector<int>>(getLength(), std::vector<int>(getHeight(), 0)))
+    , board_pieces(getLength(), std::vector<int>(getHeight(), 0))
 
 {
 

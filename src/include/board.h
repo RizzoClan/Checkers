@@ -31,7 +31,7 @@ class Board {
         int length; // x
         int height; // y
         // board needs 2D array to represent all pieces
-        const std::vector<std::vector<int>>& board_pieces;
+        const std::vector<std::vector<int>> board_pieces;
 
         // helper functions
         /**
