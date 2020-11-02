@@ -6,7 +6,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/src/cmake")
 
 # Find the packages
-find_package(BoostLib REQUIRED) # uses FindBoost.cmake in cmake dir
+# find_package(BoostLib REQUIRED) # uses FindBoost.cmake in cmake dir
 find_package(CLI11 REQUIRED) # using https://cliutils.gitlab.io/CLI11Tutorial/
 
 
