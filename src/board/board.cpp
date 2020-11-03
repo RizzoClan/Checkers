@@ -74,8 +74,8 @@ std::ostream& operator<<(std::ostream& os, const Board this_board) {
     // extra on right is to round off border
     std::string top_bot_border {std::string(this_board.getLength()*4, '-') + '-'};
 
-    // count row & col to print for board
-    int row {0};
+    // count row to print for board (decrement so that (0,0) occurs on bottom left corner)
+    int row {this_board.getHeight() - 1};
 
     for(auto& col_vec : this_board.getBoard()) {
 
@@ -89,8 +89,8 @@ std::ostream& operator<<(std::ostream& os, const Board this_board) {
         // print right most border when done with line
         os << "| " << row << endl;
 
-        // increment row counter
-        ++row;
+        // decrement row counter
+        --row;
     }
     // print the bottom border at end
     os << top_bot_border << endl;
