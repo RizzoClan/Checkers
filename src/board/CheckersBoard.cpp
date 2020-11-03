@@ -59,10 +59,6 @@ const MoveReturns CheckersBoard::movePiece(const int start_x, const int start_y,
 
             // move src piece
             return Board::movePiece(start_x, start_y, end_x, end_y);
-
-                // TODO: Double jump
-                // tell user they can move again for dpouble jump
-                // return MoveReturns::MoveAgain;
         } else {
             return MoveReturns::Invalid;
         }

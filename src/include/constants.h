@@ -30,4 +30,6 @@ enum class MoveReturns {
     MoveAgain
 };
 
+const std::string double_hop_msg = "You can move again with the same piece - double hop";
+
 #endif
