@@ -50,11 +50,21 @@ class Board {
          */
         virtual const bool movePiece(const int start_x, const int start_y, const int end_x, const int end_y);
 
+        /**
+         * @Brief: Check if "to_compare" is an enemy piece to src
+         * @Args: src: Piece that is being compared relative to
+         * @Args: to_compare: Piece that is being check if is enemy to src
+         * @Return: True (1) for is enemy, False (0) if on same team
+         */
+        virtual const bool isEnemyPiece(const Piece& src, const Piece& to_compare) const;
+
 
         /**
          * @Brief: Allow ostream to overwrite '<<' so it can be used to print board with cout
          */
         friend std::ostream& operator<<(std::ostream& os, const Board& this_board);
+
+        const bool isEmpty(const int x, const int y) const;
 
     private:
         int length; // x

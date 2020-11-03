@@ -42,6 +42,10 @@ std::vector<std::vector<Piece>>& Board::getBoard() { return board_pieces; }
 
 
 /********************************************* Board Functions  *********************************************/
+const bool Board::isEmpty(const int x, const int y) const {
+    return getBoard()[x][y].get_type() == BasicPieces::Empty;
+}
+
 const bool Board::insertPiece(const int x, const int y, BasicPieces type) {
     // check if spot is empty
     if (getBoard()[x][y].get_type() == BasicPieces::Empty) {
@@ -65,8 +69,6 @@ const bool Board::removePiece(const int x, const int y, const BasicPieces replac
         return true;
     }
 }
-
-
 
 // print
 std::ostream& operator<<(std::ostream& os, const Board& this_board) {

@@ -28,6 +28,10 @@ class Piece {
         const BasicPieces get_type() const;
         void set_type(const BasicPieces new_type);
 
+        /************************************************* Operators *************************************************/
+        const bool operator==(const Piece& to_compare) const;
+        const bool operator!=(const Piece& to_compare) const;
+
     private:
         // containins the piece's type (i.e. pawn, rook, king... or red, black)
         // dont set as const because in some games the type can change

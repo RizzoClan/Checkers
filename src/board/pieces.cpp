@@ -31,3 +31,13 @@ void Piece::set_type(const BasicPieces new_type) {
     piece_type = new_type;
 }
 
+
+/************************************************* Operators *************************************************/
+const bool Piece::operator==(const Piece& to_compare) const {
+    return get_type() == to_compare.get_type();
+}
+
+const bool Piece::operator!=(const Piece& to_compare) const {
+    return get_type() != to_compare.get_type();
+}
+
