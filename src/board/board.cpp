@@ -36,6 +36,11 @@ const int Board::getHeight() const {
     return height;
 }
 
+const Piece& Board::getPiece(int x, int y) const {
+    return getBoard()[x][y];
+}
+
+
 // const and non-const getBoard functions
 const std::vector<std::vector<Piece>>& Board::getBoard() const { return board_pieces; }
 std::vector<std::vector<Piece>>& Board::getBoard() { return board_pieces; }

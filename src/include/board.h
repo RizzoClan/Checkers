@@ -25,6 +25,13 @@ class Board {
         const int getLength() const;
         const int getHeight() const;
 
+        /**
+         * @Brief: Get the piece at a given cell
+         * @Args: x & y are the coordinates
+         * @Note: Used in engines & logic
+         */
+        const Piece& getPiece(int x, int y) const;
+
         // need const & non-const types of getBoard() -> one for editing elements, and one for reference only
         const std::vector<std::vector<Piece>>& getBoard() const; // completely const
         std::vector<std::vector<Piece>>& getBoard(); // not const
