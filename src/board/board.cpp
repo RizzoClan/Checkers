@@ -9,7 +9,7 @@ Board::Board(const int new_length, const int new_height)
     : length(new_length)
     , height(new_height)
     // create 2D vector initialized to 0
-    , board_pieces(getLength(), std::vector<int>(getHeight(), 0))
+    , board_pieces(getLength(), std::vector<Piece>(getHeight(), Piece()))
 
 {
 
@@ -36,14 +36,14 @@ const int Board::getHeight() const {
     return height;
 }
 
-const std::vector<std::vector<int>>& Board::getBoard() const {
+const std::vector<std::vector<Piece>>& Board::getBoard() const {
     return board_pieces;
 }
 
 
 /********************************************* Board Functions  *********************************************/
-const bool Board::insertPiece(const int x, const int y, const int type) {
-    board_pieces[x][y] = type;
+const bool Board::insertPiece(const int x, const int y, BasicPieces type) {
+    board_pieces[x][y].set_type(type);
     return true;
 }
 
@@ -59,7 +59,7 @@ std::ostream& operator<<(std::ostream& os, const Board this_board) {
         os << top_bot_border << endl;
 
         for (auto& piece : col) {
-            os << "| " << piece << " ";
+            os << "| " << static_cast<char>(piece.get_type()) << " ";
         }
 
         // print right most border when done with line

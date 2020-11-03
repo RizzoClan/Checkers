@@ -2,6 +2,14 @@
 
 
 /****************************************** Constructors *****************************************/
+// default everything to zero except type for default constructor
+Piece::Piece(const BasicPieces type)
+    : Piece(0, 0, type)
+{
+
+}
+
+
 Piece::Piece(const int start_x, const int start_y, const BasicPieces type)
     : pos_x(start_x)
     , pos_y(start_y)
@@ -9,6 +17,11 @@ Piece::Piece(const int start_x, const int start_y, const BasicPieces type)
 {
 
 }
+
+Piece::~Piece() {
+    // do nothing right now
+}
+
 
 /*************************************** Getters and Setters *************************************/
 const int Piece::get_x() const {

@@ -9,12 +9,13 @@ const int standard_checkers_height {8};
  * @Brief: Enum containing basic piece types
  *  (Use BasicPieces::Empty to say no piece is there)
  * @Note: extend the class to give it more types
+ * @Problem: Char duplication once try to set the chess pieces.
  */
-enum class BasicPieces {
-    Empty,
-    Red,
-    White,
-    Black,
+enum class BasicPieces : char {
+    Empty='0',
+    Red='R',
+    White='W',
+    Black='B',
     Pawn,
     Bishop,
     Knight,

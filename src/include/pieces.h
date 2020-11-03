@@ -17,7 +17,8 @@ class Piece {
          * @Arg type: represents the piece's type (defaults to empty)
          * @Note: Recommend upper level to map piece types to enum class
          */
-        Piece(const int start_x, const int start_y, const BasicPieces type=BasicPieces::Empty);
+        explicit Piece(const BasicPieces type=BasicPieces::Empty);
+        explicit Piece(const int start_x, const int start_y, const BasicPieces type=BasicPieces::Empty);
         virtual ~Piece();
 
         /******************************************** Getters and Setters ********************************************/

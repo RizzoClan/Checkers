@@ -10,6 +10,7 @@
 // 3rd Party Includes
 
 // Our Includes
+#include "pieces.h"
 
 class Board {
     public:
@@ -23,7 +24,7 @@ class Board {
         void setHeight(const int new_height);
         const int getLength() const;
         const int getHeight() const;
-        const std::vector<std::vector<int>>& getBoard() const;
+        const std::vector<std::vector<Piece>>& getBoard() const;
 
         /********************************************** Board Fucntions **********************************************/
 
@@ -31,7 +32,7 @@ class Board {
          * @Brief: Insert a piece on the board
          * @Note: 0 denotes empty space
          */
-        const bool insertPiece(const int x, const int y, const int type);
+        const bool insertPiece(const int x, const int y, BasicPieces type);
 
         /**
          * @Brief: Allow ostream to overwrite '<<' so it can be used to print board with cout
@@ -42,7 +43,7 @@ class Board {
         int length; // x
         int height; // y
         // board needs 2D array to represent all pieces
-        std::vector<std::vector<int>> board_pieces;
+        std::vector<std::vector<Piece>> board_pieces;
 
         /********************************************** Helper Fucntions **********************************************/
 
