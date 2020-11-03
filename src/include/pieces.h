@@ -32,6 +32,9 @@ class Piece {
         const bool operator==(const Piece& to_compare) const;
         const bool operator!=(const Piece& to_compare) const;
 
+        /********************************************** Helper Functions **********************************************/
+        const bool isEmpty() const;
+
     private:
         // containins the piece's type (i.e. pawn, rook, king... or red, black)
         // dont set as const because in some games the type can change

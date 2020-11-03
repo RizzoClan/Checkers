@@ -41,3 +41,7 @@ const bool Piece::operator!=(const Piece& to_compare) const {
     return get_type() != to_compare.get_type();
 }
 
+/********************************************** Helper Functions **********************************************/
+const bool Piece::isEmpty() const {
+    return get_type() == BasicPieces::Empty;
+}
