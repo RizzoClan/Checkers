@@ -6,7 +6,6 @@
 // 3rd Party Includes
 
 // Our Includes
-#include "CheckersBoard.h"
 #include "CheckersEngine.h"
 #include "constants.h"
 
@@ -17,29 +16,29 @@ using std::endl;
 
 int main(int argc, char* argv[]) {
     // declare board object
-    CheckersBoard checkers_board;
+    CheckersEngine checkers_game;
 
     bool rtn_code {true};
-    rtn_code = checkers_board.insertPiece(0,0, BasicPieces::Black);
+    rtn_code = checkers_game.insertPiece(0,0, BasicPieces::Black);
     if (!rtn_code) {
         cerr << "Error inserting piece" << endl;
     }
 
-    cout << "Board Start: " << endl << checkers_board << endl;
+    cout << "Board Start: " << endl << checkers_game << endl;
 
-    rtn_code = checkers_board.movePiece(0,0, 1,1) == MoveReturns::Success;
+    rtn_code = checkers_game.movePiece(0,0, 1,1) == MoveReturns::Success;
     if (!rtn_code) {
         cerr << "Error moving piece" << endl;
     }
 
-    cout << "After Move: " << endl << checkers_board << endl;
+    cout << "After Move: " << endl << checkers_game << endl;
 
-    rtn_code = checkers_board.removePiece(1,1, BasicPieces::Empty);
+    rtn_code = checkers_game.removePiece(1,1, BasicPieces::Empty);
     if (!rtn_code) {
         cerr << "Error removing piece" << endl;
     }
 
-    cout << "After Remove: " << endl << checkers_board << endl;
+    cout << "After Remove: " << endl << checkers_game << endl;
 
     // complete program
     exit(EXIT_SUCCESS);
