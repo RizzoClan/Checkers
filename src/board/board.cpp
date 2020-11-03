@@ -59,19 +59,31 @@ std::ostream& operator<<(std::ostream& os, const Board this_board) {
     // extra on right is to round off border
     std::string top_bot_border {std::string(this_board.getLength()*4, '-') + '-'};
 
-    for(auto& col : this_board.getBoard()) {
+    // count row & col to print for board
+    int row {0};
+
+    for(auto& col_vec : this_board.getBoard()) {
+        // increment row & col (so board has coordinate (1,1) instead of (0,0))
+        ++row;
+
         // print the top border between rows (print the char for each col)
         os << top_bot_border << endl;
 
-        for (auto& piece : col) {
+        for (auto& piece : col_vec) {
             os << "| " << static_cast<char>(piece.get_type()) << " ";
         }
 
         // print right most border when done with line
-        os << "|" << endl;
+        os << "| " << row << endl;
     }
     // print the bottom border at end
     os << top_bot_border << endl;
+
+    // print column #s: "| # |" -> "  #  "
+    for (int col_num = 1; col_num <= this_board.getLength(); col_num++) {
+        os << "  " + std::to_string(col_num) + " ";
+    }
+    os << endl; // go to newline after printing column numbers
 
     return os;
 }
