@@ -7,7 +7,7 @@
 
 // Our Includes
 #include "CheckersBoard.h"
-#include "CheckersLogic.h"
+#include "CheckersEngine.h"
 #include "constants.h"
 
 using std::cout;

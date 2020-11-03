@@ -28,5 +28,5 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 # add more folders here as needed (i.e. board, logic, frontend)
 # these trigger the CMakeLists.txt file to be called in the listed dirs
 add_subdirectory(src/board)
-add_subdirectory(src/logic)
+add_subdirectory(src/engine)
 add_subdirectory(src/game)

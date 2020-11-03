@@ -8,5 +8,5 @@ add_executable(Checkers
 # include created libs from other dirs (i.e. board) -- comes after add executable
 target_link_libraries(Checkers
     CheckersBoard
-    CheckersLogic
+    CheckersEngine
 )
