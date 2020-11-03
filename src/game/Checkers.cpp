@@ -19,9 +19,18 @@ int main(int argc, char* argv[]) {
     // declare board object
     Board checkers_board(standard_checkers_length, standard_checkers_height);
 
+    int start_x = 1;
+    int start_y = 1;
+    int end_x = 3;
+    int end_y = 3;
+
     cout << "Starting Board: " << endl << checkers_board << endl;
 
     checkers_board.insertPiece(1,1, BasicPieces::Black);
+    cout << "Insert Board: " << endl << checkers_board << endl;
+
+    checkers_board.movePiece(start_x, start_y, end_x, end_y);
+
     cout << "Ending Board: " << endl << checkers_board << endl;
 
     // complete program

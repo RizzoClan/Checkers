@@ -35,6 +35,12 @@ class Board {
         const bool insertPiece(const int x, const int y, BasicPieces type);
 
         /**
+         * @Brief: Move a piece on the board
+         * @Args: start -> end
+         */
+        const bool movePiece(const int start_x, const int start_y, const int end_x, const int end_y);
+
+        /**
          * @Brief: Allow ostream to overwrite '<<' so it can be used to print board with cout
          */
         friend std::ostream& operator<<(std::ostream& os, const Board this_board);

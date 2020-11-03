@@ -47,6 +47,11 @@ const bool Board::insertPiece(const int x, const int y, BasicPieces type) {
     return true;
 }
 
+const bool Board::movePiece(const int start_x, const int start_y, const int end_x, const int end_y) {
+    board_pieces[end_x][end_y] = board_pieces[start_x][start_y];
+    board_pieces[start_x][start_y] = Piece(); // reset
+}
+
 
 // print
 std::ostream& operator<<(std::ostream& os, const Board this_board) {
