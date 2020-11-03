@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 2.8)
 project (Checkers)
 
-# use c++11
-set(CMAKE_CXX_STANDARD 11)
+# use c++17
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# use gcc5
-set(CMAKE_C_COMPILER /usr/bin/gcc5 CACHE PATH "" FORCE)
-set(CMAKE_CXX_COMPILER /usr/bin/clang++ CACHE PATH "" FORCE)
+# use gcc/++7
+set(CMAKE_C_COMPILER /usr/bin/gcc-7 CACHE PATH "" FORCE)
+set(CMAKE_CXX_COMPILER /usr/bin/g++-7 CACHE PATH "" FORCE)
 
 # =================================== load Dependencies globally for all subdirs ===================================
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
