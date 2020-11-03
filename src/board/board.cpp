@@ -36,16 +36,16 @@ const int Board::getHeight() const {
     return height;
 }
 
-const std::vector<std::vector<Piece>>& Board::getBoard() const {
-    return board_pieces;
-}
+// const and non-const getBoard functions
+const std::vector<std::vector<Piece>>& Board::getBoard() const { return board_pieces; }
+std::vector<std::vector<Piece>>& Board::getBoard() { return board_pieces; }
 
 
 /********************************************* Board Functions  *********************************************/
 const bool Board::insertPiece(const int x, const int y, BasicPieces type) {
     // check if spot is empty
-    if (board_pieces[x][y].get_type() == BasicPieces::Empty) {
-        board_pieces[x][y].set_type(type);
+    if (getBoard()[x][y].get_type() == BasicPieces::Empty) {
+        getBoard()[x][y].set_type(type);
         return true;
     } else {
         return false;
@@ -53,15 +53,15 @@ const bool Board::insertPiece(const int x, const int y, BasicPieces type) {
 }
 
 const bool Board::movePiece(const int start_x, const int start_y, const int end_x, const int end_y) {
-    board_pieces[end_x][end_y] = board_pieces[start_x][start_y];
-    board_pieces[start_x][start_y] = Piece(); // reset
+    getBoard()[end_x][end_y] = getBoard()[start_x][start_y];
+    getBoard()[start_x][start_y] = Piece(); // reset
 }
 
 const bool Board::removePiece(const int x, const int y, const BasicPieces replace_with) {
-    if (board_pieces[x][y].get_type() == BasicPieces::Empty) {
+    if (getBoard()[x][y].get_type() == BasicPieces::Empty) {
         return false; // nothing to remove
     } else {
-        board_pieces[x][y] = Piece(replace_with); // reset
+        getBoard()[x][y] = Piece(replace_with); // reset
         return true;
     }
 }
