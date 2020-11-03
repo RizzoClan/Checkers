@@ -18,6 +18,10 @@ class Piece {
          * @Note: Recommend upper level to map piece types to enum class
          */
         explicit Piece(const BasicPieces type=BasicPieces::Empty);
+        /**
+         * @Brief: Copy constructor
+         */
+        explicit Piece(const Piece& piece_obj);
         virtual ~Piece();
 
         /******************************************** Getters and Setters ********************************************/

@@ -10,6 +10,13 @@ Piece::Piece(const BasicPieces type)
 
 }
 
+// copy constructor
+Piece::Piece(const Piece& piece_obj) 
+    : piece_type(piece_obj.get_type())
+{
+
+}
+
 Piece::~Piece() {
     // do nothing right now
 }
