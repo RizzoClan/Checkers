@@ -57,6 +57,16 @@ const bool Board::movePiece(const int start_x, const int start_y, const int end_
     board_pieces[start_x][start_y] = Piece(); // reset
 }
 
+const bool Board::removePiece(const int x, const int y, const BasicPieces replace_with) {
+    if (board_pieces[x][y].get_type() == BasicPieces::Empty) {
+        return false; // nothing to remove
+    } else {
+        board_pieces[x][y] = Piece(replace_with); // reset
+        return true;
+    }
+}
+
+
 
 // print
 std::ostream& operator<<(std::ostream& os, const Board this_board) {

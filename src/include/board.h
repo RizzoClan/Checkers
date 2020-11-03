@@ -31,15 +31,22 @@ class Board {
         /**
          * @Brief: Insert a piece on the board
          * @Return: True (1) for success, False (0) if spot taken already
-         * @Note: 0 denotes empty space
          */
         const bool insertPiece(const int x, const int y, BasicPieces type);
+
+        /**
+         * @Brief: Removes a piece on the board
+         * @Args: replace_with: (Defaults to empty), use this to replace removed piece with a specific one
+         * @Return: True (1) for success, False (0) if spot was empty
+         */
+        const bool removePiece(const int x, const int y, const BasicPieces replace_with=BasicPieces::Empty);
 
         /**
          * @Brief: Move a piece on the board
          * @Args: start -> end
          */
         const bool movePiece(const int start_x, const int start_y, const int end_x, const int end_y);
+
 
         /**
          * @Brief: Allow ostream to overwrite '<<' so it can be used to print board with cout

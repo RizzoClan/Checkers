@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
 
     bool insert_rtn {true};
     insert_rtn &= checkers_board.insertPiece(1,1, BasicPieces::Black);
-    insert_rtn &= checkers_board.insertPiece(1,1, BasicPieces::White);
+    insert_rtn &= checkers_board.removePiece(1,1, BasicPieces::Red);
 
 
     // complete program
