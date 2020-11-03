@@ -51,7 +51,7 @@ class Board {
         /**
          * @Brief: Allow ostream to overwrite '<<' so it can be used to print board with cout
          */
-        friend std::ostream& operator<<(std::ostream& os, const Board this_board);
+        friend std::ostream& operator<<(std::ostream& os, const Board& this_board);
 
     private:
         int length; // x

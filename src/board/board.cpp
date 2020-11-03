@@ -69,7 +69,7 @@ const bool Board::removePiece(const int x, const int y, const BasicPieces replac
 
 
 // print
-std::ostream& operator<<(std::ostream& os, const Board this_board) {
+std::ostream& operator<<(std::ostream& os, const Board& this_board) {
     // multiply by 4 because each cell has "| # ...|"
     // extra on right is to round off border
     std::string top_bot_border {std::string(this_board.getLength()*4, '-') + '-'};
