@@ -1,8 +1,8 @@
-#include "GamePieces.h"
+#include "pieces.h"
 
 
 /****************************************** Constructors *****************************************/
-Piece::Piece(const int start_x, const int start_y, const int type)
+Piece::Piece(const int start_x, const int start_y, const BasicPieces type)
     : pos_x(start_x)
     , pos_y(start_y)
     , piece_type(type)
@@ -24,5 +24,13 @@ void Piece::set_x(const int new_x) {
 }
 void Piece::set_y(const int new_y) {
     pos_y = new_y;
+}
+
+const BasicPieces Piece::get_type() const {
+    return piece_type;
+}
+
+void Piece::set_type(const BasicPieces new_type) {
+    piece_type = new_type;
 }
 
