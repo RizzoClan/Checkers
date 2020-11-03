@@ -44,12 +44,15 @@ const MoveReturns CheckersBoard::movePiece(const int start_x, const int start_y,
         if (dest_piece.isEmpty() && (delta_y == 1 || delta_y == -1)) {
             // normal move into empty space
             Board::movePiece(start_x, start_y, end_x, end_y);
+            return MoveReturns::Success;
         } else if (!dest_piece.isEmpty()) {
             cout << "Invalid Move! Moving onto an existing piece" << endl;
             return MoveReturns::Invalid;
-        } else if((delta_y == 2 || delta_y == -2) && (delta_x == 2 || delta_x == -2) && // jumped
-            isEnemyPiece(src_piece, curr_board[start_x+delta_x/2][start_y+delta_y/2]) // jumped over a enemy piece
+        } else if(
+            (delta_y == 2 || delta_y == -2) && (delta_x == 2 || delta_x == -2) && // jumped
+            isEnemyPiece(src_piece, curr_board[start_x+delta_x/2][start_y+delta_y/2])
         ) {
+            // jumped over a enemy piece
             // jump over enemy
             // remove jumped over piece
             removePiece(start_x+delta_x/2, start_y+delta_y/2);
@@ -63,7 +66,6 @@ const MoveReturns CheckersBoard::movePiece(const int start_x, const int start_y,
         } else {
             return MoveReturns::Invalid;
         }
-
 
     } else {
         // invalid move if not going forward diagonally
