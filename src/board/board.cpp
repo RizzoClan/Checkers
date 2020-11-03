@@ -63,8 +63,6 @@ std::ostream& operator<<(std::ostream& os, const Board this_board) {
     int row {0};
 
     for(auto& col_vec : this_board.getBoard()) {
-        // increment row & col (so board has coordinate (1,1) instead of (0,0))
-        ++row;
 
         // print the top border between rows (print the char for each col)
         os << top_bot_border << endl;
@@ -75,12 +73,15 @@ std::ostream& operator<<(std::ostream& os, const Board this_board) {
 
         // print right most border when done with line
         os << "| " << row << endl;
+
+        // increment row counter
+        ++row;
     }
     // print the bottom border at end
     os << top_bot_border << endl;
 
     // print column #s: "| # |" -> "  #  "
-    for (int col_num = 1; col_num <= this_board.getLength(); col_num++) {
+    for (int col_num = 0; col_num < this_board.getLength(); col_num++) {
         os << "  " + std::to_string(col_num) + " ";
     }
     os << endl; // go to newline after printing column numbers
