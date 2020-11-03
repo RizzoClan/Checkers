@@ -99,8 +99,7 @@ const MoveReturns CheckersEngine::tryMove(const int start_x, const int start_y, 
             isEnemyPiece(src_piece, curr_board[start_x+delta_x/2][start_y+delta_y/2])
         ) {
             // jumped over a enemy piece
-            // jump over enemy
-            // remove jumped over piece
+            // thus, move + remove jumped over piece
             removePiece(start_x+delta_x/2, start_y+delta_y/2);
 
             // move src piece
