@@ -42,6 +42,13 @@ const std::vector<std::vector<int>>& Board::getBoard() const {
 
 
 /********************************************* Board Functions  *********************************************/
+const bool Board::insertPiece(const int x, const int y, const int type) {
+    board_pieces[x][y] = type;
+    return true;
+}
+
+
+// print
 std::ostream& operator<<(std::ostream& os, const Board this_board) {
     // multiply by 4 because each cell has "| # ...|"
     // extra on right is to round off border

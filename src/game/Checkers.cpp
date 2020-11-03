@@ -21,6 +21,9 @@ int main(int argc, char* argv[]) {
 
     cout << "Starting Board: " << endl << checkers_board << endl;
 
+    checkers_board.insertPiece(1,1, 5);
+    cout << "Ending Board: " << endl << checkers_board << endl;
+
     // complete program
     exit(EXIT_SUCCESS);
 }

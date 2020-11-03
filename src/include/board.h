@@ -26,12 +26,23 @@ class Board {
         const std::vector<std::vector<int>>& getBoard() const;
 
         /********************************************** Board Fucntions **********************************************/
+
+        /**
+         * @Brief: Insert a piece on the board
+         * @Note: 0 denotes empty space
+         */
+        const bool insertPiece(const int x, const int y, const int type);
+
+        /**
+         * @Brief: Allow ostream to overwrite '<<' so it can be used to print board with cout
+         */
         friend std::ostream& operator<<(std::ostream& os, const Board this_board);
+
     private:
         int length; // x
         int height; // y
         // board needs 2D array to represent all pieces
-        const std::vector<std::vector<int>> board_pieces;
+        std::vector<std::vector<int>> board_pieces;
 
         /********************************************** Helper Fucntions **********************************************/
 
