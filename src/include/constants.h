@@ -24,5 +24,10 @@ enum class BasicPieces : char {
     King
 };
 
+enum class MoveReturns {
+    Success,
+    Invalid,
+    MoveAgain
+};
 
 #endif

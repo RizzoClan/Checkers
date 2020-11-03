@@ -48,7 +48,7 @@ const bool Board::isEmpty(const int x, const int y) const {
 
 const bool Board::insertPiece(const int x, const int y, BasicPieces type) {
     // check if spot is empty
-    if (getBoard()[x][y].get_type() == BasicPieces::Empty) {
+    if (getBoard()[x][y].isEmpty()) {
         getBoard()[x][y].set_type(type);
         return true;
     } else {
@@ -56,9 +56,16 @@ const bool Board::insertPiece(const int x, const int y, BasicPieces type) {
     }
 }
 
-const bool Board::movePiece(const int start_x, const int start_y, const int end_x, const int end_y) {
-    getBoard()[end_x][end_y] = getBoard()[start_x][start_y];
-    getBoard()[start_x][start_y] = Piece(); // reset
+const MoveReturns Board::movePiece(const int start_x, const int start_y, const int end_x, const int end_y) {
+    const Piece& src_piece = getBoard()[start_x][start_y];
+    Piece& dest_piece = getBoard()[end_x][end_y];
+    if (!src_piece.isEmpty() && dest_piece.isEmpty()) {
+        dest_piece = src_piece;
+        getBoard()[start_x][start_y] = Piece(); // reset
+        return MoveReturns::Success;
+    } else {
+        return MoveReturns::Invalid;
+    }
 }
 
 const bool Board::removePiece(const int x, const int y, const BasicPieces replace_with) {

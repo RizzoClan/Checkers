@@ -48,15 +48,16 @@ class Board {
          * @Brief: Move a piece on the board
          * @Args: start -> end
          */
-        virtual const bool movePiece(const int start_x, const int start_y, const int end_x, const int end_y);
+        virtual const MoveReturns movePiece(const int start_x, const int start_y, const int end_x, const int end_y);
 
         /**
+         * set as completely virtual with '=0'
          * @Brief: Check if "to_compare" is an enemy piece to src
          * @Args: src: Piece that is being compared relative to
          * @Args: to_compare: Piece that is being check if is enemy to src
          * @Return: True (1) for is enemy, False (0) if on same team
          */
-        virtual const bool isEnemyPiece(const Piece& src, const Piece& to_compare) const;
+        virtual const bool isEnemyPiece(const Piece& src, const Piece& to_compare) const = 0;
 
 
         /**

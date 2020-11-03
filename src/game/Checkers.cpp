@@ -19,18 +19,27 @@ int main(int argc, char* argv[]) {
     // declare board object
     CheckersBoard checkers_board;
 
-    bool insert_rtn {true};
-    insert_rtn &= checkers_board.insertPiece(1,1, BasicPieces::Black);
+    bool rtn_code {true};
+    rtn_code = checkers_board.insertPiece(0,0, BasicPieces::Black);
+    if (!rtn_code) {
+        cerr << "Error inserting piece" << endl;
+    }
 
     cout << "Board Start: " << endl << checkers_board << endl;
 
-    insert_rtn &= checkers_board.movePiece(1,1, 2,2);
+    rtn_code = checkers_board.movePiece(0,0, 1,1) == MoveReturns::Success;
+    if (!rtn_code) {
+        cerr << "Error moving piece" << endl;
+    }
 
     cout << "After Move: " << endl << checkers_board << endl;
 
-    // insert_rtn &= checkers_board.removePiece(1,1, BasicPieces::Red);
+    rtn_code = checkers_board.removePiece(1,1, BasicPieces::Empty);
+    if (!rtn_code) {
+        cerr << "Error removing piece" << endl;
+    }
 
-    // cout << "Board: " << endl << checkers_board << endl;
+    cout << "After Remove: " << endl << checkers_board << endl;
 
     // complete program
     exit(EXIT_SUCCESS);
