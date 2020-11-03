@@ -26,26 +26,26 @@ class Board {
         const int getHeight() const;
         const std::vector<std::vector<Piece>>& getBoard() const;
 
-        /********************************************** Board Fucntions **********************************************/
+        /********************************************** Board Functions **********************************************/
 
         /**
          * @Brief: Insert a piece on the board
          * @Return: True (1) for success, False (0) if spot taken already
          */
-        const bool insertPiece(const int x, const int y, BasicPieces type);
+        virtual const bool insertPiece(const int x, const int y, BasicPieces type);
 
         /**
          * @Brief: Removes a piece on the board
          * @Args: replace_with: (Defaults to empty), use this to replace removed piece with a specific one
          * @Return: True (1) for success, False (0) if spot was empty
          */
-        const bool removePiece(const int x, const int y, const BasicPieces replace_with=BasicPieces::Empty);
+        virtual const bool removePiece(const int x, const int y, const BasicPieces replace_with=BasicPieces::Empty);
 
         /**
          * @Brief: Move a piece on the board
          * @Args: start -> end
          */
-        const bool movePiece(const int start_x, const int start_y, const int end_x, const int end_y);
+        virtual const bool movePiece(const int start_x, const int start_y, const int end_x, const int end_y);
 
 
         /**
@@ -59,7 +59,7 @@ class Board {
         // board needs 2D array to represent all pieces
         std::vector<std::vector<Piece>> board_pieces;
 
-        /********************************************** Helper Fucntions **********************************************/
+        /********************************************** Helper Functions **********************************************/
 
 };
 
