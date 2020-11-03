@@ -43,8 +43,13 @@ const std::vector<std::vector<Piece>>& Board::getBoard() const {
 
 /********************************************* Board Functions  *********************************************/
 const bool Board::insertPiece(const int x, const int y, BasicPieces type) {
-    board_pieces[x][y].set_type(type);
-    return true;
+    // check if spot is empty
+    if (board_pieces[x][y].get_type() == BasicPieces::Empty) {
+        board_pieces[x][y].set_type(type);
+        return true;
+    } else {
+        return false;
+    }
 }
 
 const bool Board::movePiece(const int start_x, const int start_y, const int end_x, const int end_y) {

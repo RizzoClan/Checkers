@@ -30,6 +30,7 @@ class Board {
 
         /**
          * @Brief: Insert a piece on the board
+         * @Return: True (1) for success, False (0) if spot taken already
          * @Note: 0 denotes empty space
          */
         const bool insertPiece(const int x, const int y, BasicPieces type);
