@@ -5,9 +5,11 @@ using std::cerr;
 using std::endl;
 
 /**************************************************** Constructors ***************************************************/
-Player::Player(const BasicTeams _team, const BasicPieces associated_team)
+Player::Player(const BasicTeams _team, const BasicPieces associated_piece)
     : team(_team)
-    , piece_type(associated_team)
+    , piece_type(associated_piece)
+    , num_pieces(12) // start off with 12 pieces)
+    , hasLost(false)
 {
 
 }
@@ -32,6 +34,23 @@ bool Player::setPieceType(const BasicPieces new_piece_type) {
     return true;
 }
 
+bool Player::setPieceCount(const int new_piece_count) {
+    num_pieces = new_piece_count;
+
+    // if lost all pieces, player has lost
+    if (num_pieces <= 0) {
+        hasLost = true;
+    } else {
+        hasLost = false;
+
+    }
+
+    return true;
+}
+
+int Player::getPieceCount() const {
+    return num_pieces;
+}
 
 /********************************************** Player Functions **********************************************/
 

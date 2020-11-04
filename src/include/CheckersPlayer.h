@@ -10,6 +10,7 @@
 // 3rd Party Includes
 
 // Our Includes
+#include "board.h"
 #include "constants.h"
 
 class Player {
@@ -18,9 +19,9 @@ class Player {
         /**
          * @Brief Constructor for player object
          * @Args - team: The player's team id
-         * @Args - associated_team (optional): the piece type to associate the player with
+         * @Args - associated_piece (optional): the piece type to associate the player with
          */
-        explicit Player(const BasicTeams team, const BasicPieces associated_team);
+        explicit Player(const BasicTeams team, const BasicPieces associated_piece);
 
         /******************************************** Getters and Setters ********************************************/
         BasicTeams getTeam() const;
@@ -31,11 +32,16 @@ class Player {
         // true for succes
         bool setPieceType(const BasicPieces new_piece_type);
 
+        bool setPieceCount(const int new_piece_count);
+        int getPieceCount() const;
+
         /********************************************** Player Functions **********************************************/
 
     private:
         BasicTeams team;
         BasicPieces piece_type;
+        int num_pieces; // 0-12 pieces
+        bool hasLost;
 
         /********************************************** Helper Functions **********************************************/
 };
