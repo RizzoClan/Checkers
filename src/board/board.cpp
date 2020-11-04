@@ -28,11 +28,11 @@ void Board::setHeight(const int new_height) {
     height = new_height;
 }
 
-const int Board::getLength() const {
+int Board::getLength() const {
     return length;
 }
 
-const int Board::getHeight() const {
+int Board::getHeight() const {
     return height;
 }
 
@@ -47,11 +47,11 @@ std::vector<std::vector<Piece>>& Board::getBoard() { return board_pieces; }
 
 
 /********************************************* Board Functions  *********************************************/
-const bool Board::isEmpty(const int x, const int y) const {
+bool Board::isEmpty(const int x, const int y) const {
     return getBoard()[x][y].isEmpty();
 }
 
-const bool Board::insertPiece(const int x, const int y, BasicPieces type) {
+bool Board::insertPiece(const int x, const int y, BasicPieces type) {
     // check if spot is empty
     if (getBoard()[x][y].isEmpty()) {
         getBoard()[x][y].set_type(type);
@@ -61,7 +61,7 @@ const bool Board::insertPiece(const int x, const int y, BasicPieces type) {
     }
 }
 
-const MoveReturns Board::movePiece(const int start_x, const int start_y, const int end_x, const int end_y) {
+MoveReturns Board::movePiece(const int start_x, const int start_y, const int end_x, const int end_y) {
     const Piece& src_piece = getBoard()[start_x][start_y];
     Piece& dest_piece = getBoard()[end_x][end_y];
 
@@ -74,7 +74,7 @@ const MoveReturns Board::movePiece(const int start_x, const int start_y, const i
     }
 }
 
-const bool Board::removePiece(const int x, const int y, const BasicPieces replace_with) {
+bool Board::removePiece(const int x, const int y, const BasicPieces replace_with) {
     if (getBoard()[x][y].get_type() == BasicPieces::Empty) {
         return false; // nothing to remove
     } else {
@@ -127,6 +127,6 @@ std::ostream& operator<<(std::ostream& os, const Board& this_board) {
 
 /********************************************* Helper Functions  *********************************************/
 
-const std::string Board::createCoordStr(const int x, const int y) const {
+std::string Board::createCoordStr(const int x, const int y) const {
     return " (" + std::to_string(x) + ',' + std::to_string(y) + ") ";
 }

@@ -18,7 +18,7 @@ CheckersEngine::~CheckersEngine() {
 
 /********************************************** Board Functions **********************************************/
 
-const PieceSelectReturns CheckersEngine::selectPiece() {
+PieceSelectReturns CheckersEngine::selectPiece() {
     cout << "Enter in (x,y) coordinate of piece to move (space seperated): ";
     int x,y {};
     cin >> x >> y;
@@ -29,7 +29,7 @@ const PieceSelectReturns CheckersEngine::selectPiece() {
 }
 
 
-const PieceSelectReturns CheckersEngine::selectMoveDest(const int src_x, const int src_y) {
+PieceSelectReturns CheckersEngine::selectMoveDest(const int src_x, const int src_y) {
     const bool printSrc = src_x != -1 && src_y != -1;
     const std::string src_str = createCoordStr(src_x, src_y);
     while(true) {
@@ -62,12 +62,12 @@ const PieceSelectReturns CheckersEngine::selectMoveDest(const int src_x, const i
 
 /************************************** Move Piece Function **************************************/
 // wrapper that gets user input for destination
-const MoveReturns CheckersEngine::movePiece(const int start_x, const int start_y) {
+MoveReturns CheckersEngine::movePiece(const int start_x, const int start_y) {
     auto sel_dest = selectMoveDest(start_x, start_y);
     return movePiece(start_x, start_y, sel_dest.x, sel_dest.y);
 }
 
-const MoveReturns CheckersEngine::movePiece(
+MoveReturns CheckersEngine::movePiece(
     const int start_x, const int start_y,
     const int end_x, const int end_y
 ) {
@@ -123,7 +123,7 @@ const MoveReturns CheckersEngine::movePiece(
 
 /******************************************** Helper Board Functions ******************************************/
 
-const MoveReturns CheckersEngine::tryMove(const int start_x, const int start_y, const int end_x, const int end_y) {
+MoveReturns CheckersEngine::tryMove(const int start_x, const int start_y, const int end_x, const int end_y) {
     /**
      * slope of move = diagonal = 1 or -1
      * can only go forward if not king
@@ -181,7 +181,7 @@ const MoveReturns CheckersEngine::tryMove(const int start_x, const int start_y, 
     }
 }
 
-const bool CheckersEngine::isJumpable(const int x, const int y, const int slope, const bool is_upward) const {
+bool CheckersEngine::isJumpable(const int x, const int y, const int slope, const bool is_upward) const {
     // first eliminate invalid slope
     if (abs(slope) != 1) return false;
 
@@ -202,9 +202,12 @@ const bool CheckersEngine::isJumpable(const int x, const int y, const int slope,
         else if (adj_degree == 2 && adj_piece.isEmpty()) return true;
         else if (adj_degree == 2) return false;
     }
+
+    // should have returned by now
+    return false;
 }
 
-const bool CheckersEngine::canAttack(const int src_x, const int src_y) const {
+bool CheckersEngine::canAttack(const int src_x, const int src_y) const {
     // to be able to attack, must be have a adj enemy piece with a empty space behind it
     // TODO: have to take direction of allowed travel into consideration eventually
     //      -- considering all 4 directions
@@ -232,7 +235,7 @@ const bool CheckersEngine::canAttack(const int src_x, const int src_y) const {
     return false;
 }
 
-const bool CheckersEngine::isEnemyPiece(const Piece& src, const Piece& to_compare) const {
+bool CheckersEngine::isEnemyPiece(const Piece& src, const Piece& to_compare) const {
     // since there are only two types of pieces (binary coloring), can do a simple !=
     return src != to_compare && to_compare != BasicPieces::Empty;
 }

@@ -45,8 +45,8 @@ class CheckersEngine : public Board {
          * @Args: start -> end
          * @Returns: MoveReturns enum (MoveReturns::Invalid == error), see enum for other meanings
          */
-        virtual const MoveReturns movePiece(const int start_x, const int start_y, const int end_x, const int end_y);
-        virtual const MoveReturns movePiece(const int start_x, const int start_y);
+        virtual MoveReturns movePiece(const int start_x, const int start_y, const int end_x, const int end_y);
+        virtual MoveReturns movePiece(const int start_x, const int start_y);
 
         /**
          * @Brief: Ask user for coords to select a piece
@@ -54,7 +54,7 @@ class CheckersEngine : public Board {
          *      PieceSelectReturns::CannotMove for its not your piece,
          *      and PieceSelectReturns::Invalid for everything else
          */
-        virtual const PieceSelectReturns selectPiece();
+        virtual PieceSelectReturns selectPiece();
 
         /**
          * @Brief: Ask user for coords for where to move a piece
@@ -64,7 +64,7 @@ class CheckersEngine : public Board {
          *      and PieceSelectReturns::Invalid for everything else
          * @Note: Function keeps going until the SelectCodes == SelectCodes::Success -- no need to check
          */
-        virtual const PieceSelectReturns selectMoveDest(const int src_x=-1, const int src_y=-1);
+        virtual PieceSelectReturns selectMoveDest(const int src_x=-1, const int src_y=-1);
 
     private:
         /********************************************* Private Variables *********************************************/
@@ -76,7 +76,7 @@ class CheckersEngine : public Board {
          * @Brief: Checks if the piece has an attackable piece next to it
          * @Returns: true: has attackable piece adjacent to it, false cannot attack any pieces
          */
-        const bool canAttack(const int x, const int y) const;
+        bool canAttack(const int x, const int y) const;
 
 
         /**
@@ -86,7 +86,7 @@ class CheckersEngine : public Board {
          * @args: isUpward: true - if piece is going the up board, false - if piece is going down the board 
          * @Returns: true: has attackable piece adjacent to it, false cannot attack any pieces
          */
-        const bool isJumpable(const int x, const int y, const int slope, const bool is_upward) const;
+        bool isJumpable(const int x, const int y, const int slope, const bool is_upward) const;
 
         /**
          * @Brief: Move a piece on the board
@@ -95,7 +95,7 @@ class CheckersEngine : public Board {
          * @Note: Different from base board because has to handle jumping over and removal of enemy pieces
          * @Note: Pieces move diagonally forward (backward if kinged)
          */
-        const MoveReturns tryMove(const int start_x, const int start_y, const int end_x, const int end_y);
+        MoveReturns tryMove(const int start_x, const int start_y, const int end_x, const int end_y);
 
         /**
          * @Brief: Check if "to_compare" is an enemy piece to src
@@ -104,7 +104,7 @@ class CheckersEngine : public Board {
          * @Return: True (1) for is enemy, False (0) if on same team
          * @Note: True for (Red, White), (White, Red), (White, Black), (Black, White)
          */
-        virtual const bool isEnemyPiece(const Piece& src, const Piece& to_compare) const;
+        virtual bool isEnemyPiece(const Piece& src, const Piece& to_compare) const;
 };
 
 

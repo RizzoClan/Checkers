@@ -28,8 +28,8 @@ class Board {
         /******************************************** Getters and Setters ********************************************/
         void setLength(const int new_length);
         void setHeight(const int new_height);
-        const int getLength() const;
-        const int getHeight() const;
+        int getLength() const;
+        int getHeight() const;
 
         /**
          * @Brief: Get the piece at a given cell
@@ -48,20 +48,20 @@ class Board {
          * @Brief: Insert a piece on the board
          * @Return: True (1) for success, False (0) if spot taken already
          */
-        virtual const bool insertPiece(const int x, const int y, BasicPieces type);
+        virtual bool insertPiece(const int x, const int y, BasicPieces type);
 
         /**
          * @Brief: Removes a piece on the board
          * @Args: replace_with: (Defaults to empty), use this to replace removed piece with a specific one
          * @Return: True (1) for success, False (0) if spot was empty
          */
-        virtual const bool removePiece(const int x, const int y, const BasicPieces replace_with=BasicPieces::Empty);
+        virtual bool removePiece(const int x, const int y, const BasicPieces replace_with=BasicPieces::Empty);
 
         /**
          * @Brief: Move a piece on the board
          * @Args: start -> end
          */
-        virtual const MoveReturns movePiece(const int start_x, const int start_y, const int end_x, const int end_y);
+        virtual MoveReturns movePiece(const int start_x, const int start_y, const int end_x, const int end_y);
 
         /**
          * set as completely virtual with '=0'
@@ -70,7 +70,7 @@ class Board {
          * @Args: to_compare: Piece that is being check if is enemy to src
          * @Return: True (1) for is enemy, False (0) if on same team
          */
-        virtual const bool isEnemyPiece(const Piece& src, const Piece& to_compare) const = 0;
+        virtual bool isEnemyPiece(const Piece& src, const Piece& to_compare) const = 0;
 
 
         /**
@@ -78,7 +78,7 @@ class Board {
          */
         friend std::ostream& operator<<(std::ostream& os, const Board& this_board);
 
-        const bool isEmpty(const int x, const int y) const;
+        bool isEmpty(const int x, const int y) const;
 
     private:
         int length; // x
@@ -92,7 +92,7 @@ class Board {
          * @Brief: Creates preformatted string containing " (x,y) "
          * @Note: The string already contains spaces on left and right
          */
-        const std::string createCoordStr(const int x, const int y) const;
+        std::string createCoordStr(const int x, const int y) const;
 };
 
 #endif
