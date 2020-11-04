@@ -14,7 +14,8 @@ using std::cerr;
 using std::endl;
 
 
-int main(int argc, char* argv[]) {
+// int main(int argc, char* argv[]) {
+int main() {
     // declare board object
     CheckersEngine checkers_game;
 
