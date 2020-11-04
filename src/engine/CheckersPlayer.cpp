@@ -5,7 +5,7 @@ using std::cerr;
 using std::endl;
 
 /**************************************************** Constructors ***************************************************/
-Player::Player(const BasicPieces _team)
+Player::Player(const BasicTeams _team)
     : team(_team)
 {
 
@@ -13,11 +13,11 @@ Player::Player(const BasicPieces _team)
 
 
 /******************************************** Getters and Setters ********************************************/
-BasicPieces Player::getTeam() const {
+BasicTeams Player::getTeam() const {
     return team;
 }
 
-bool Player::setTeam(const BasicPieces new_team) {
+bool Player::setTeam(const BasicTeams new_team) {
     team = new_team;
     return true;
 }

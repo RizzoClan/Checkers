@@ -15,17 +15,17 @@
 class Player {
     public:
         /************************************************ Constructors ***********************************************/
-        Player(const BasicPieces team);
+        Player(const BasicTeams team);
 
         /******************************************** Getters and Setters ********************************************/
-        BasicPieces getTeam() const;
+        BasicTeams getTeam() const;
         // returns true for success
-        bool setTeam(const BasicPieces new_team);
+        bool setTeam(const BasicTeams new_team);
 
         /********************************************** Player Functions **********************************************/
 
     private:
-        BasicPieces team;
+        BasicTeams team;
 
         /********************************************** Helper Functions **********************************************/
 };

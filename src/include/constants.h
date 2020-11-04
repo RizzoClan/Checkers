@@ -30,4 +30,16 @@ enum class MoveReturns {
     MoveAgain = 1
 };
 
+// generally games have only 1-4 teams/players
+enum class BasicTeams {
+    Team1,
+    Team2,
+    Team3,
+    Team4,
+    // some other types of team qualifications
+    Red,
+    White,
+    Black
+};
+
 #endif
