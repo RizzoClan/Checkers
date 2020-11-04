@@ -24,7 +24,7 @@ const PieceSelectReturns CheckersEngine::selectPiece() {
     cin >> x >> y;
     cout << "You entered: (" << x << ',' << y << ')' << endl;
 
-    // stub -- need to first associate players with colors to say if it is an enemy
+    // stub -- TODO: need to first associate players with colors to say if it is an enemy
     return PieceSelectReturns(SelectCodes::Success, x, y);
 }
 
