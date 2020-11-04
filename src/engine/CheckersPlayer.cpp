@@ -5,8 +5,9 @@ using std::cerr;
 using std::endl;
 
 /**************************************************** Constructors ***************************************************/
-Player::Player(const BasicTeams _team)
+Player::Player(const BasicTeams _team, const BasicPieces associated_team)
     : team(_team)
+    , piece_type(associated_team)
 {
 
 }
@@ -22,6 +23,14 @@ bool Player::setTeam(const BasicTeams new_team) {
     return true;
 }
 
+BasicPieces Player::getPieceType() const {
+    return piece_type;
+}
+
+bool Player::setPieceType(const BasicPieces new_piece_type) {
+    piece_type = new_piece_type;
+    return true;
+}
 
 
 /********************************************** Player Functions **********************************************/
