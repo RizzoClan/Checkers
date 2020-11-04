@@ -20,8 +20,9 @@ int main() {
     CheckersEngine checkers_game;
 
     bool rtn_code {true};
-    rtn_code = checkers_game.insertPiece(0,0, BasicPieces::Black);
+    rtn_code = checkers_game.insertPiece(0,0, BasicPieces::Black); // piece to move for double jump
     rtn_code = checkers_game.insertPiece(1,1, BasicPieces::White);
+    rtn_code = checkers_game.insertPiece(3,3, BasicPieces::White); // piece to double jump
 
     cout << "Board Start: " << endl << checkers_game << endl;
 
