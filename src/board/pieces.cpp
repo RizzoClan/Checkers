@@ -46,6 +46,14 @@ std::ostream& operator<<(std::ostream& os, const Piece& this_piece) {
     return os;
 }
 
+const bool Piece::operator!=(const BasicPieces& to_compare) const {
+    return get_type() != to_compare;
+}
+const bool Piece::operator==(const BasicPieces& to_compare) const {
+    return get_type() == to_compare;
+
+}
+
 
 /********************************************** Helper Functions **********************************************/
 const bool Piece::isEmpty() const {

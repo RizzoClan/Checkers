@@ -53,7 +53,7 @@ const PieceSelectReturns CheckersEngine::selectMoveDest(const int src_x, const i
             }
 
             // only way to leave function
-            return PieceSelectReturns{rtn_code, x, y};
+            return PieceSelectReturns{SelectCodes::Success, x, y};
         } else {
             cout << "Invalid destination. Please try again." << endl;
         }
@@ -64,7 +64,7 @@ const PieceSelectReturns CheckersEngine::selectMoveDest(const int src_x, const i
 // wrapper that gets user input for destination
 const MoveReturns CheckersEngine::movePiece(const int start_x, const int start_y) {
     auto sel_dest = selectMoveDest(start_x, start_y);
-    return movePiece(sel_dest.x, sel_dest.y);
+    return movePiece(start_x, start_y, sel_dest.x, sel_dest.y);
 }
 
 const MoveReturns CheckersEngine::movePiece(
@@ -189,5 +189,5 @@ const bool CheckersEngine::canAttack(const int x, const int y) const {
 
 const bool CheckersEngine::isEnemyPiece(const Piece& src, const Piece& to_compare) const {
     // since there are only two types of pieces (binary coloring), can do a simple !=
-    return src != to_compare;
+    return src != to_compare && to_compare != BasicPieces::Empty;
 }
