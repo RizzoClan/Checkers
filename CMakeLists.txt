@@ -9,6 +9,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_C_COMPILER /usr/bin/gcc-7 CACHE PATH "" FORCE)
 set(CMAKE_CXX_COMPILER /usr/bin/g++-7 CACHE PATH "" FORCE)
 
+# set build type based on makefile target
+# CMAKE_BUILD_TYPE set in Makefile
+set(CMAKE_CXX_FLAGS "-Wall -Wextra")
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+
+
 # =================================== load Dependencies globally for all subdirs ===================================
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/src/cmake")

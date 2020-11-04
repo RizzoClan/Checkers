@@ -23,7 +23,7 @@ Piece::~Piece() {
 
 
 /*************************************** Getters and Setters *************************************/
-const BasicPieces Piece::get_type() const {
+BasicPieces Piece::get_type() const {
     return piece_type;
 }
 
@@ -33,15 +33,29 @@ void Piece::set_type(const BasicPieces new_type) {
 
 
 /************************************************* Operators *************************************************/
-const bool Piece::operator==(const Piece& to_compare) const {
+bool Piece::operator==(const Piece& to_compare) const {
     return get_type() == to_compare.get_type();
 }
 
-const bool Piece::operator!=(const Piece& to_compare) const {
+bool Piece::operator!=(const Piece& to_compare) const {
     return get_type() != to_compare.get_type();
 }
 
+std::ostream& operator<<(std::ostream& os, const Piece& this_piece) {
+    os << static_cast<char>(this_piece.get_type());
+    return os;
+}
+
+bool Piece::operator!=(const BasicPieces& to_compare) const {
+    return get_type() != to_compare;
+}
+bool Piece::operator==(const BasicPieces& to_compare) const {
+    return get_type() == to_compare;
+
+}
+
+
 /********************************************** Helper Functions **********************************************/
-const bool Piece::isEmpty() const {
+bool Piece::isEmpty() const {
     return get_type() == BasicPieces::Empty;
 }

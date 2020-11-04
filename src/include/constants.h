@@ -25,9 +25,9 @@ enum class BasicPieces : char {
 };
 
 enum class MoveReturns {
-    Success,
-    Invalid,
-    MoveAgain
+    Success = 0,
+    Invalid = -1,
+    MoveAgain = 1
 };
 
 #endif

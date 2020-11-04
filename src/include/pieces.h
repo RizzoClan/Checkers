@@ -25,15 +25,18 @@ class Piece {
         virtual ~Piece();
 
         /******************************************** Getters and Setters ********************************************/
-        const BasicPieces get_type() const;
+        BasicPieces get_type() const;
         void set_type(const BasicPieces new_type);
 
         /************************************************* Operators *************************************************/
-        const bool operator==(const Piece& to_compare) const;
-        const bool operator!=(const Piece& to_compare) const;
+        bool operator==(const Piece& to_compare) const;
+        bool operator!=(const Piece& to_compare) const;
+        bool operator!=(const BasicPieces& to_compare) const;
+        bool operator==(const BasicPieces& to_compare) const;
+        friend std::ostream& operator<<(std::ostream& os, const Piece& this_piece);
 
         /********************************************** Helper Functions **********************************************/
-        const bool isEmpty() const;
+        bool isEmpty() const;
 
     private:
         // containins the piece's type (i.e. pawn, rook, king... or red, black)
