@@ -9,8 +9,10 @@ using std::endl;
 CheckersEngine::CheckersEngine() 
     : Board(standard_checkers_length, standard_checkers_height) // construct parent
     // create players (teams are red and white)
-    , player1(BasicTeams::Team1, BasicPieces::Red)
-    , player2(BasicTeams::Team2, BasicPieces::White)
+    , players({
+        CheckersPlayer{BasicTeams::Team1, BasicPieces::Red},
+        CheckersPlayer{BasicTeams::Team2, BasicPieces::White}
+    })
 {
 
 }

@@ -72,8 +72,7 @@ class CheckersEngine : public Board {
 
     private:
         /********************************************* Private Variables *********************************************/
-        CheckersPlayer player1;
-        CheckersPlayer player2;
+        CheckersPlayer players[2]; // there are 2 players for checkers
 
         /******************************************* Helper Board Functions ******************************************/
 
