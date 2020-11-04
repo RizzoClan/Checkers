@@ -45,6 +45,7 @@ class CheckersEngine : public Board {
          * @Returns: MoveReturns enum (MoveReturns::Invalid == error), see enum for other meanings
          */
         virtual const MoveReturns movePiece(const int start_x, const int start_y, const int end_x, const int end_y);
+        virtual const MoveReturns movePiece(const int start_x, const int start_y);
 
         /**
          * @Brief: Ask user for coords to select a piece

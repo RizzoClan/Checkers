@@ -20,13 +20,11 @@ int main(int argc, char* argv[]) {
 
     bool rtn_code {true};
     rtn_code = checkers_game.insertPiece(0,0, BasicPieces::Black);
-    if (!rtn_code) {
-        cerr << "Error inserting piece" << endl;
-    }
+    rtn_code = checkers_game.insertPiece(1,1, BasicPieces::White);
 
     cout << "Board Start: " << endl << checkers_game << endl;
 
-    rtn_code = checkers_game.movePiece(0,0, 1,1) == MoveReturns::Success;
+    rtn_code = checkers_game.movePiece(0,0) == MoveReturns::Success;
     if (!rtn_code) {
         cerr << "Error moving piece" << endl;
     }

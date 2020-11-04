@@ -60,6 +60,12 @@ const PieceSelectReturns CheckersEngine::selectMoveDest(const int src_x, const i
     }
 }
 
+/************************************** Move Piece Function **************************************/
+// wrapper that gets user input for destination
+const MoveReturns CheckersEngine::movePiece(const int start_x, const int start_y) {
+    auto sel_dest = selectMoveDest(start_x, start_y);
+    return movePiece(sel_dest.x, sel_dest.y);
+}
 
 const MoveReturns CheckersEngine::movePiece(
     const int start_x, const int start_y,
