@@ -31,6 +31,7 @@ class Piece {
         /************************************************* Operators *************************************************/
         const bool operator==(const Piece& to_compare) const;
         const bool operator!=(const Piece& to_compare) const;
+        friend std::ostream& operator<<(std::ostream& os, const Piece& this_piece);
 
         /********************************************** Helper Functions **********************************************/
         const bool isEmpty() const;

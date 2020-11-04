@@ -41,6 +41,12 @@ const bool Piece::operator!=(const Piece& to_compare) const {
     return get_type() != to_compare.get_type();
 }
 
+std::ostream& operator<<(std::ostream& os, const Piece& this_piece) {
+    os << static_cast<char>(this_piece.get_type());
+    return os;
+}
+
+
 /********************************************** Helper Functions **********************************************/
 const bool Piece::isEmpty() const {
     return get_type() == BasicPieces::Empty;
