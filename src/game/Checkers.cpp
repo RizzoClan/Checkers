@@ -33,12 +33,12 @@ int main(int argc, char* argv[]) {
 
     cout << "After Move: " << endl << checkers_game << endl;
 
-    rtn_code = checkers_game.removePiece(1,1, BasicPieces::Empty);
-    if (!rtn_code) {
-        cerr << "Error removing piece" << endl;
-    }
+    // rtn_code = checkers_game.removePiece(1,1, BasicPieces::Empty);
+    // if (!rtn_code) {
+    //     cerr << "Error removing piece" << endl;
+    // }
 
-    cout << "After Remove: " << endl << checkers_game << endl;
+    // cout << "After Remove: " << endl << checkers_game << endl;
 
     // complete program
     exit(EXIT_SUCCESS);
