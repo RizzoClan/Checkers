@@ -5,7 +5,7 @@ using std::cerr;
 using std::endl;
 
 /**************************************************** Constructors ***************************************************/
-Player::Player(const BasicTeams _team, const BasicPieces associated_piece)
+CheckersPlayer::CheckersPlayer(const BasicTeams _team, const BasicPieces associated_piece)
     : team(_team)
     , piece_type(associated_piece)
     , num_pieces(12) // start off with 12 pieces)
@@ -14,27 +14,31 @@ Player::Player(const BasicTeams _team, const BasicPieces associated_piece)
 
 }
 
+CheckersPlayer::~CheckersPlayer() {
+    //stub
+}
+
 
 /******************************************** Getters and Setters ********************************************/
-BasicTeams Player::getTeam() const {
+BasicTeams CheckersPlayer::getTeam() const {
     return team;
 }
 
-bool Player::setTeam(const BasicTeams new_team) {
+bool CheckersPlayer::setTeam(const BasicTeams new_team) {
     team = new_team;
     return true;
 }
 
-BasicPieces Player::getPieceType() const {
+BasicPieces CheckersPlayer::getPieceType() const {
     return piece_type;
 }
 
-bool Player::setPieceType(const BasicPieces new_piece_type) {
+bool CheckersPlayer::setPieceType(const BasicPieces new_piece_type) {
     piece_type = new_piece_type;
     return true;
 }
 
-bool Player::setPieceCount(const int new_piece_count) {
+bool CheckersPlayer::setPieceCount(const int new_piece_count) {
     num_pieces = new_piece_count;
 
     // if lost all pieces, player has lost
@@ -48,7 +52,7 @@ bool Player::setPieceCount(const int new_piece_count) {
     return true;
 }
 
-int Player::getPieceCount() const {
+int CheckersPlayer::getPieceCount() const {
     return num_pieces;
 }
 

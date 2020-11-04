@@ -13,7 +13,7 @@
 #include "board.h"
 #include "constants.h"
 
-class Player {
+class CheckersPlayer {
     public:
         /************************************************ Constructors ***********************************************/
         /**
@@ -21,7 +21,8 @@ class Player {
          * @Args - team: The player's team id
          * @Args - associated_piece (optional): the piece type to associate the player with
          */
-        explicit Player(const BasicTeams team, const BasicPieces associated_piece);
+        explicit CheckersPlayer(const BasicTeams team, const BasicPieces associated_piece);
+        virtual ~CheckersPlayer();
 
         /******************************************** Getters and Setters ********************************************/
         BasicTeams getTeam() const;
