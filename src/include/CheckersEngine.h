@@ -54,6 +54,14 @@ class CheckersEngine : public Board {
          */
         virtual const PieceSelectReturns selectPiece();
 
+        /**
+         * @Brief: Ask user for coords for where to move a piece
+         * @Returns: PieceSelectReturns::Success for no problems,
+         *      PieceSelectReturns::CannotMove spot is already taken,
+         *      and PieceSelectReturns::Invalid for everything else
+         */
+        virtual const PieceSelectReturns selectMoveDest();
+
     private:
         /********************************************* Private Variables *********************************************/
 

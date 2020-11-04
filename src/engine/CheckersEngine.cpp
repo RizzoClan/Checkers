@@ -19,13 +19,33 @@ CheckersEngine::~CheckersEngine() {
 /********************************************** Board Functions **********************************************/
 
 const PieceSelectReturns CheckersEngine::selectPiece() {
-    cout << "Enter in (x,y) coordinate of piece to move (space or comma seperated): ";
+    cout << "Enter in (x,y) coordinate of piece to move (space seperated): ";
     int x,y {};
     cin >> x >> y;
     cout << "You entered: (" << x << ',' << y << ')' << endl;
 
     // stub -- TODO: need to first associate players with colors to say if it is an enemy
     return PieceSelectReturns(SelectCodes::Success, x, y);
+}
+
+
+const PieceSelectReturns CheckersEngine::selectMoveDest() {
+    while(true) {
+        cout << "Enter in (x,y) coordinate of where to move (space seperated): ";
+        int x,y {};
+        cin >> x >> y;
+        cout << "You entered: (" << x << ',' << y << ')' << endl;
+
+        // check if dest is already taken
+        const SelectCodes rtn_code = isEmpty(x,y) ? SelectCodes::Success : SelectCodes::CannotMove;
+
+        if (rtn_code == SelectCodes::Success) {
+            // only way to leave function
+            return PieceSelectReturns(rtn_code, x, y);
+        } else {
+            cout << "Invalid destination. Please try again." << endl;
+        }
+    }
 }
 
 
@@ -58,10 +78,10 @@ const MoveReturns CheckersEngine::movePiece(
                 to_move_y = dest_y;
 
                 // TODO: implement helper to ask for user input about were to try moving...
-                cout << "IMPLEMENT METHOD TO CHOOSE NEXT DEST- defaulting to 0 0" << endl;
-                dest_x = 0; 
-                dest_y = 0;
-
+                const PieceSelectReturns sel_dest {selectMoveDest()};
+                dest_x = sel_dest.x;
+                dest_y = sel_dest.y;
+                    
                 // go back to top of loop
                 continue;
 
