@@ -18,12 +18,14 @@ class Player {
         Player(const BasicPieces team);
 
         /******************************************** Getters and Setters ********************************************/
-
+        BasicPieces getTeam() const;
+        // returns true for success
+        bool setTeam(const BasicPieces new_team);
 
         /********************************************** Player Functions **********************************************/
 
     private:
-        const BasicPieces team;
+        BasicPieces team;
 
         /********************************************** Helper Functions **********************************************/
 };

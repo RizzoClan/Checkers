@@ -13,6 +13,14 @@ Player::Player(const BasicPieces _team)
 
 
 /******************************************** Getters and Setters ********************************************/
+BasicPieces Player::getTeam() const {
+    return team;
+}
+
+bool Player::setTeam(const BasicPieces new_team) {
+    team = new_team;
+    return true;
+}
 
 
 
