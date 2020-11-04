@@ -126,3 +126,6 @@ std::ostream& operator<<(std::ostream& os, const Board& this_board) {
 
 /********************************************* Helper Functions  *********************************************/
 
+const std::string Board::createCoordStr(const int x, const int y) const {
+    return " (" + std::to_string(x) + ',' + std::to_string(y) + ") ";
+}

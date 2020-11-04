@@ -29,9 +29,15 @@ const PieceSelectReturns CheckersEngine::selectPiece() {
 }
 
 
-const PieceSelectReturns CheckersEngine::selectMoveDest() {
+const PieceSelectReturns CheckersEngine::selectMoveDest(const int src_x, const int src_y) {
+    const std::string src_str = createCoordStr(src_x, src_y);
     while(true) {
-        cout << "Enter in (x,y) coordinate of where to move (space seperated): ";
+        // if src is provided, print it
+        if (src_x != -1 && src_y != -1) {
+            cout << "Starting from" << src_str << endl <<
+                "Enter in (x,y) coordinate of where to move (space seperated): ";
+        }
+
         int x,y {};
         cin >> x >> y;
         cout << "You entered: (" << x << ',' << y << ')' << endl;
@@ -40,6 +46,9 @@ const PieceSelectReturns CheckersEngine::selectMoveDest() {
         const SelectCodes rtn_code = isEmpty(x,y) ? SelectCodes::Success : SelectCodes::CannotMove;
 
         if (rtn_code == SelectCodes::Success) {
+            // print src->dest
+            cout << "Moving" << src_str << "->" << createCoordStr(x,y) << endl; 
+
             // only way to leave function
             return PieceSelectReturns(rtn_code, x, y);
         } else {
@@ -64,7 +73,8 @@ const MoveReturns CheckersEngine::movePiece(
     while (move_rtn != MoveReturns::Success) {
         // try to move the piece
         move_rtn = tryMove(to_move_x, to_move_y, dest_x, dest_y);
-        
+        cout << "Updated Board: " << endl << *this << endl;
+
         // normal case
         if (move_rtn == MoveReturns::Success) {
 
@@ -78,7 +88,7 @@ const MoveReturns CheckersEngine::movePiece(
                 to_move_y = dest_y;
 
                 // TODO: implement helper to ask for user input about were to try moving...
-                const PieceSelectReturns sel_dest {selectMoveDest()};
+                const PieceSelectReturns sel_dest {selectMoveDest(to_move_x, to_move_y)};
                 dest_x = sel_dest.x;
                 dest_y = sel_dest.y;
                     
@@ -121,11 +131,14 @@ const MoveReturns CheckersEngine::tryMove(const int start_x, const int start_y, 
         //  check if there is a piece in dest or jumping over an enemy
         if (dest_piece.isEmpty() && (delta_y == 1 || delta_y == -1)) {
             // normal move into empty space
-            Board::movePiece(start_x, start_y, end_x, end_y);
-            return MoveReturns::Success;
+            cout << "Moving" << createCoordStr(start_x, start_y) 
+                << "->" << createCoordStr(end_x, end_y) << endl;
+            return Board::movePiece(start_x, start_y, end_x, end_y);
+
         } else if (!dest_piece.isEmpty()) {
             cout << "Invalid Move! Moving onto an existing piece" << endl;
             return MoveReturns::Invalid;
+
         } else if(
             (delta_y == 2 || delta_y == -2) && (delta_x == 2 || delta_x == -2) && // jumped
             isEnemyPiece(src_piece, curr_board[start_x+delta_x/2][start_y+delta_y/2])
@@ -136,6 +149,7 @@ const MoveReturns CheckersEngine::tryMove(const int start_x, const int start_y, 
 
             // move src piece
             return Board::movePiece(start_x, start_y, end_x, end_y);
+
         } else {
             return MoveReturns::Invalid;
         }

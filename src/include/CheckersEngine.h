@@ -56,11 +56,12 @@ class CheckersEngine : public Board {
 
         /**
          * @Brief: Ask user for coords for where to move a piece
+         * @Args: src x and y are optional and enable print of src->dest (default to -1)
          * @Returns: PieceSelectReturns::Success for no problems,
          *      PieceSelectReturns::CannotMove spot is already taken,
          *      and PieceSelectReturns::Invalid for everything else
          */
-        virtual const PieceSelectReturns selectMoveDest();
+        virtual const PieceSelectReturns selectMoveDest(const int src_x=-1, const int src_y=-1);
 
     private:
         /********************************************* Private Variables *********************************************/

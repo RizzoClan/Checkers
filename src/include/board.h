@@ -80,8 +80,13 @@ class Board {
         // board needs 2D array to represent all pieces
         std::vector<std::vector<Piece>> board_pieces;
 
+    protected:
         /********************************************** Helper Functions **********************************************/
-
+        /**
+         * @Brief: Creates preformatted string containing " (x,y) "
+         * @Note: The string already contains spaces on left and right
+         */
+        const std::string createCoordStr(const int x, const int y) const;
 };
 
 #endif

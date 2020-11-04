@@ -31,8 +31,6 @@ int main(int argc, char* argv[]) {
         cerr << "Error moving piece" << endl;
     }
 
-    cout << "After Move: " << endl << checkers_game << endl;
-
     // rtn_code = checkers_game.removePiece(1,1, BasicPieces::Empty);
     // if (!rtn_code) {
     //     cerr << "Error removing piece" << endl;
