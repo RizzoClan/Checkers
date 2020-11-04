@@ -6,6 +6,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <math.h>
 
 // 3rd Party Includes
 
@@ -76,6 +77,16 @@ class CheckersEngine : public Board {
          * @Returns: true: has attackable piece adjacent to it, false cannot attack any pieces
          */
         const bool canAttack(const int x, const int y) const;
+
+
+        /**
+         * @Brief: Checks if the piece can jump over a piece in a specific spot
+         * @args: (x,y): the coordinates of the source piece
+         * @args: slope: the slope being checked (valid if either 1 or -1)
+         * @args: isUpward: true - if piece is going the up board, false - if piece is going down the board 
+         * @Returns: true: has attackable piece adjacent to it, false cannot attack any pieces
+         */
+        const bool isJumpable(const int x, const int y, const int slope, const bool is_upward) const;
 
         /**
          * @Brief: Move a piece on the board

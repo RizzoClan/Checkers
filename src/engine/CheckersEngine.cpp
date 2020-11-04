@@ -154,8 +154,7 @@ const MoveReturns CheckersEngine::tryMove(const int start_x, const int start_y, 
             (delta_y == 2 || delta_y == -2) && (delta_x == 2 || delta_x == -2) && // jumped
             isEnemyPiece(src_piece, curr_board[start_x+delta_x/2][start_y+delta_y/2])
         ) {
-            cout << "Jumping over enemy piece: " << createCoordStr(start_x, start_y) 
-                << "->" << createCoordStr(end_x, end_y) << endl;
+            cout << "Jumped over enemy piece" << endl;
 
             // jumped over a enemy piece
             // thus, move + remove jumped over piece
@@ -182,9 +181,55 @@ const MoveReturns CheckersEngine::tryMove(const int start_x, const int start_y, 
     }
 }
 
+const bool CheckersEngine::isJumpable(const int x, const int y, const int slope, const bool is_upward) const {
+    // first eliminate invalid slope
+    if (abs(slope) != 1) return false;
 
-const bool CheckersEngine::canAttack(const int x, const int y) const {
-    return true;// stub
+    /**
+     * based on up or down, eliminates some paths 
+     * -- upward means dest_y > src_y
+     * -- downward means dest_y < src_y
+     * Only affects dest_y
+     */
+    const int vert_scale = is_upward ? 1 : -1;
+
+    // need to check directly adjecent (1) for enemy and (2) for empty
+    for (int adj_degree : {1, 2}) {
+        const int dest_x = x + slope*adj_degree; // x +/-1 * adj_degree
+        const int dest_y = y + vert_scale*adj_degree;
+        const Piece& adj_piece = getPiece(dest_x, dest_y);
+        if (adj_degree == 1 && !isEnemyPiece(getPiece(x,y), adj_piece)) return false;
+        else if (adj_degree == 2 && adj_piece.isEmpty()) return true;
+        else if (adj_degree == 2) return false;
+    }
+}
+
+const bool CheckersEngine::canAttack(const int src_x, const int src_y) const {
+    // to be able to attack, must be have a adj enemy piece with a empty space behind it
+    // TODO: have to take direction of allowed travel into consideration eventually
+    //      -- considering all 4 directions
+
+    // define temnp struct to make calling function 4 times easier
+    struct JumpCombo {
+        JumpCombo(const int _slope, const int _is_upward) : slope(_slope), is_upward(_is_upward) {}
+        const int slope;
+        const bool is_upward;
+    };
+
+    // arrange in clockwise order from top-left
+    const JumpCombo possible_combos[4] = {
+        JumpCombo{-1, true},
+        JumpCombo{ 1, true},
+        JumpCombo{-1, false},
+        JumpCombo{ 1, false}
+    };
+
+    for (JumpCombo combo : possible_combos) {
+        if(isJumpable(src_x, src_y, combo.slope, combo.is_upward)) return true;
+    }
+
+    // if non were jumpable, piece cannot attack
+    return false;
 }
 
 const bool CheckersEngine::isEnemyPiece(const Piece& src, const Piece& to_compare) const {

@@ -12,6 +12,12 @@
 // Our Includes
 #include "pieces.h"
 
+struct BoardCoord {
+    BoardCoord(const int x, const int y) : x(x), y(y) {}
+    int x;
+    int y;
+};
+
 class Board {
     public:
         /************************************************ Constructors ***********************************************/
