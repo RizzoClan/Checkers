@@ -1,4 +1,4 @@
-#include "player.h"
+#include "CheckersPlayer.h"
 
 using std::cout;
 using std::cerr;
