@@ -1,6 +1,7 @@
 #include "CheckersEngine.h"
 
 using std::cout;
+using std::cin;
 using std::cerr;
 using std::endl;
 
@@ -16,6 +17,17 @@ CheckersEngine::~CheckersEngine() {
 }
 
 /********************************************** Board Functions **********************************************/
+
+const PieceSelectReturns CheckersEngine::selectPiece() {
+    cout << "Enter in (x,y) coordinate of piece to move (space or comma seperated): ";
+    int x,y {};
+    cin >> x >> y;
+    cout << "You entered: (" << x << ',' << y << ')' << endl;
+
+    // stub -- need to first associate players with colors to say if it is an enemy
+    return PieceSelectReturns(SelectCodes::Success, x, y);
+}
+
 
 const MoveReturns CheckersEngine::movePiece(
     const int start_x, const int start_y,

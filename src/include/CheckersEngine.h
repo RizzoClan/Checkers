@@ -13,6 +13,24 @@
 #include "Board.h"
 #include "constants.h"
 
+enum class SelectCodes {
+    Success,
+    CannotMove, // i.e. its not your piece
+    Invalid
+};
+
+/**
+ * Handles the returns from selectPiece
+ * @param: Includes (x,y) coordinate and the code for whether or not its a valid piece to select
+ */
+struct PieceSelectReturns {
+    PieceSelectReturns(const SelectCodes rtn_code, const int sel_x, const int sel_y)
+        : code(rtn_code), x(sel_x), y(sel_y) {}
+    SelectCodes code;
+    int x;
+    int y;
+};
+
 class CheckersEngine : public Board {
     public:
         /************************************************ Constructors ***********************************************/
@@ -28,6 +46,13 @@ class CheckersEngine : public Board {
          */
         virtual const MoveReturns movePiece(const int start_x, const int start_y, const int end_x, const int end_y);
 
+        /**
+         * @Brief: Ask user for coords to select a piece
+         * @Returns: PieceSelectReturns::Success for no problems,
+         *      PieceSelectReturns::CannotMove for its not your piece,
+         *      and PieceSelectReturns::Invalid for everything else
+         */
+        virtual const PieceSelectReturns selectPiece();
 
     private:
         /********************************************* Private Variables *********************************************/
