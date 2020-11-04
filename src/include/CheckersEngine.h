@@ -1,3 +1,6 @@
+//@File: Handles game logic & rules
+//@Note: Rules found at https://ctycms.com/mn-rochester/docs/checkers-instructions.pdf
+
 #ifndef CHECKERS_ENGINE_H
 #define CHECKERS_ENGINE_H
 
@@ -13,6 +16,7 @@
 // Our Includes
 #include "Board.h"
 #include "constants.h"
+#include "CheckersPlayer.h"
 
 enum class SelectCodes {
     Success,
@@ -68,7 +72,8 @@ class CheckersEngine : public Board {
 
     private:
         /********************************************* Private Variables *********************************************/
-
+        CheckersPlayer player1;
+        CheckersPlayer player2;
 
         /******************************************* Helper Board Functions ******************************************/
 
