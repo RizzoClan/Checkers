@@ -60,6 +60,7 @@ class CheckersEngine : public Board {
          * @Returns: PieceSelectReturns::Success for no problems,
          *      PieceSelectReturns::CannotMove spot is already taken,
          *      and PieceSelectReturns::Invalid for everything else
+         * @Note: Function keeps going until the SelectCodes == SelectCodes::Success -- no need to check
          */
         virtual const PieceSelectReturns selectMoveDest(const int src_x=-1, const int src_y=-1);
 

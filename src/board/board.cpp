@@ -64,6 +64,7 @@ const bool Board::insertPiece(const int x, const int y, BasicPieces type) {
 const MoveReturns Board::movePiece(const int start_x, const int start_y, const int end_x, const int end_y) {
     const Piece& src_piece = getBoard()[start_x][start_y];
     Piece& dest_piece = getBoard()[end_x][end_y];
+
     if (!src_piece.isEmpty() && dest_piece.isEmpty()) {
         dest_piece = src_piece;
         getBoard()[start_x][start_y] = Piece(); // reset

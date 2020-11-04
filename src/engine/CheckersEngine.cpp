@@ -30,10 +30,11 @@ const PieceSelectReturns CheckersEngine::selectPiece() {
 
 
 const PieceSelectReturns CheckersEngine::selectMoveDest(const int src_x, const int src_y) {
+    const bool printSrc = src_x != -1 && src_y != -1;
     const std::string src_str = createCoordStr(src_x, src_y);
     while(true) {
         // if src is provided, print it
-        if (src_x != -1 && src_y != -1) {
+        if (printSrc) {
             cout << "Starting from" << src_str << endl <<
                 "Enter in (x,y) coordinate of where to move (space seperated): ";
         }
@@ -47,10 +48,12 @@ const PieceSelectReturns CheckersEngine::selectMoveDest(const int src_x, const i
 
         if (rtn_code == SelectCodes::Success) {
             // print src->dest
-            cout << "Moving" << src_str << "->" << createCoordStr(x,y) << endl; 
+            if (printSrc) {
+                cout << "Moving" << src_str << "->" << createCoordStr(x,y) << endl;
+            }
 
             // only way to leave function
-            return PieceSelectReturns(rtn_code, x, y);
+            return PieceSelectReturns{rtn_code, x, y};
         } else {
             cout << "Invalid destination. Please try again." << endl;
         }
@@ -77,36 +80,37 @@ const MoveReturns CheckersEngine::movePiece(
 
         // normal case
         if (move_rtn == MoveReturns::Success) {
+            return MoveReturns::Success;
+        }
 
-            // check if the piece that was just moved can hop again
-            if(canAttack(dest_x, dest_y)) {
-                // can only move again with the same piece that was moved originally
-                cout << double_hop_msg << endl;
+        // check if the piece that was just moved can hop again
+        else if(move_rtn == MoveReturns::MoveAgain) {
+            // can only move again with the same piece that was moved originally
+            cout << "You can move again with the same piece - double hop" << endl;
 
-                // update to select newly created piece position to move
-                to_move_x = dest_x;
-                to_move_y = dest_y;
+            // update to select newly created piece position to move
+            to_move_x = dest_x;
+            to_move_y = dest_y;
 
-                // TODO: implement helper to ask for user input about were to try moving...
-                const PieceSelectReturns sel_dest {selectMoveDest(to_move_x, to_move_y)};
-                dest_x = sel_dest.x;
-                dest_y = sel_dest.y;
-                    
-                // go back to top of loop
-                continue;
-
-            } else {
-                // if no more moves, just return success
-                return MoveReturns::Success;
-            }
+            // TODO: implement helper to ask for user input about were to try moving...
+            const PieceSelectReturns sel_dest {selectMoveDest(to_move_x, to_move_y)};
+            dest_x = sel_dest.x;
+            dest_y = sel_dest.y;
+                
+            // go back to top of loop
+            // move_rtn = MoveReturns::MoveAgain;
+            continue;
 
         } else if (move_rtn == MoveReturns::Invalid) {
             // error case
             cout << "Invalid Move, try again" << endl;
-        } else if (move_rtn == MoveReturns::MoveAgain) {
-            cout << double_hop_msg << endl;
+        } else {
+            throw("Unkown MoveReturn Handle");
         }
     }
+
+    // should never reach this point
+    throw("Reached unexpected end of move function");
 }
 
 
@@ -122,6 +126,7 @@ const MoveReturns CheckersEngine::tryMove(const int start_x, const int start_y, 
     const int delta_x = end_x - start_x;
     const float move_slope = delta_y / delta_x;
     const bool diag_move = (move_slope == -1 || move_slope == 1);
+
     if (diag_move) {
         //  get relative pieces
         auto& curr_board = getBoard();
@@ -143,12 +148,22 @@ const MoveReturns CheckersEngine::tryMove(const int start_x, const int start_y, 
             (delta_y == 2 || delta_y == -2) && (delta_x == 2 || delta_x == -2) && // jumped
             isEnemyPiece(src_piece, curr_board[start_x+delta_x/2][start_y+delta_y/2])
         ) {
+            cout << "Jumping over enemy piece: " << createCoordStr(start_x, start_y) 
+                << "->" << createCoordStr(end_x, end_y) << endl;
+
             // jumped over a enemy piece
             // thus, move + remove jumped over piece
             removePiece(start_x+delta_x/2, start_y+delta_y/2);
 
             // move src piece
-            return Board::movePiece(start_x, start_y, end_x, end_y);
+            MoveReturns mv_rtn = Board::movePiece(start_x, start_y, end_x, end_y);
+
+            // check if can attack again at destination
+            if (mv_rtn != MoveReturns::Invalid && canAttack(end_x, end_y)) {
+                return MoveReturns::MoveAgain;
+            } else {
+                return mv_rtn;
+            }
 
         } else {
             return MoveReturns::Invalid;

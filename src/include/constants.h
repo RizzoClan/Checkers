@@ -25,11 +25,9 @@ enum class BasicPieces : char {
 };
 
 enum class MoveReturns {
-    Success,
-    Invalid,
-    MoveAgain
+    Success = 0,
+    Invalid = -1,
+    MoveAgain = 1
 };
-
-const std::string double_hop_msg = "You can move again with the same piece - double hop";
 
 #endif
