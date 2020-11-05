@@ -108,7 +108,7 @@ bool CheckersEngine::initPlayerOnBoard(const CheckersPlayer& player) {
             if ( ((x+y) % 2 == 1) && (y != 3 && y != 4) ) {
 
                 // if fail to insert piece, failed and return
-                // cout << "Placing piece @ " << BoardCoord{x,y} << endl;
+                cout << "Placing piece @ " << BoardCoord{x,y} << ": " << piece_type << endl;
                 if(!insertPiece(x, y, piece_type)) {
                     return false;
                 }

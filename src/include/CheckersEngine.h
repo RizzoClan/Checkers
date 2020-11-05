@@ -17,6 +17,7 @@
 #include "Board.h"
 #include "constants.h"
 #include "CheckersPlayer.h"
+#include "PrintEnums.hpp"
 
 enum class SelectCodes {
     Success,

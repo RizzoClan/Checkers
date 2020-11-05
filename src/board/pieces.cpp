@@ -42,8 +42,7 @@ bool Piece::operator!=(const Piece& to_compare) const {
 }
 
 std::ostream& operator<<(std::ostream& os, const Piece& this_piece) {
-    os << static_cast<char>(this_piece.getType());
-    return os;
+    return os << static_cast<char>(this_piece.getType());
 }
 
 bool Piece::operator!=(const BasicPieces& to_compare) const {
