@@ -93,22 +93,19 @@ bool CheckersEngine::initPlayerOnBoard(const CheckersPlayer& player) {
     }
 
     // determine offsets based on color 
-    // (white first piece in row y=5)
-    // (white first piece is in col x=1)
+    // (red first piece in row y=5)
     // white pieces cannot be placed passed middle
-    const int y_offset = piece_type == BasicPieces::Red ? 0 : 5;
-    const int x_offset = piece_type == BasicPieces::Red ? 0 : 1;
+    const int y_offset = piece_type == BasicPieces::Red ? 5 : 0;
     const int y_max    = piece_type == BasicPieces::Red ? getHeight() : 2; // inclusive for red 
 
     // go row by row (keep y constant)
     for (int y = y_offset; y < getHeight() && y <= y_max; y++) {
-        for (int x = x_offset; x < getLength(); x++) {
+        for (int x = 0; x < getLength(); x++) {
 
             // has to be odd and not in row 3 or 4
             if ( ((x+y) % 2 == 1) && (y != 3 && y != 4) ) {
 
                 // if fail to insert piece, failed and return
-                cout << "Placing piece @ " << BoardCoord{x,y} << ": " << piece_type << endl;
                 if(!insertPiece(x, y, piece_type)) {
                     return false;
                 }
@@ -123,6 +120,7 @@ bool CheckersEngine::initPlayerOnBoard(const CheckersPlayer& player) {
 
 bool CheckersEngine::resetBoard() {
     for (CheckersPlayer& player_to_init : players) {
+
         if(!initPlayerOnBoard(player_to_init)) {
             // if failed placing on board, print it and reset/wipe board
             cerr << "Failed inserting piece..." << endl << *this << endl;
