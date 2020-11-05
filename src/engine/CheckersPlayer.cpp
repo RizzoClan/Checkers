@@ -6,6 +6,8 @@ using std::endl;
 
 /**************************************************** Constructors ***************************************************/
 
+namespace Checkers {
+
 /**
  * @Brief: Constructor to make a player with enough info to function
  * @Args: team: The team the piece belongs to - should be different from another piece's
@@ -14,7 +16,7 @@ using std::endl;
 CheckersPlayer::CheckersPlayer(const BasicTeams _team, const BasicPieces associated_piece)
     : team(_team)
     , piece_type(associated_piece)
-    , num_pieces(CheckersConstants::max_player_pieces) // start off with 12 pieces
+    , num_pieces(Checkers::Constants::max_player_pieces) // start off with 12 pieces
     , hasLost(false)
 {
 
@@ -45,7 +47,7 @@ bool CheckersPlayer::setPieceType(const BasicPieces new_piece_type) {
 }
 
 bool CheckersPlayer::resetPieceCount() {
-    return setPieceCount(CheckersConstants::max_player_pieces);
+    return setPieceCount(Checkers::Constants::max_player_pieces);
 }
 
 
@@ -71,3 +73,5 @@ int CheckersPlayer::getPieceCount() const {
 
 
 /********************************************** Helper Functions **********************************************/
+
+} // end of Checkers namespace

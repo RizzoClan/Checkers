@@ -13,6 +13,8 @@
 #include "board.h"
 #include "constants.h"
 
+namespace Checkers {
+
 class CheckersPlayer {
     public:
         /************************************************ Constructors ***********************************************/
@@ -50,4 +52,5 @@ class CheckersPlayer {
         /********************************************** Helper Functions **********************************************/
 };
 
+} // end of Checkers namespace
 #endif

@@ -17,7 +17,7 @@ using std::endl;
 // int main(int argc, char* argv[]) {
 int main() {
     // declare board object
-    CheckersEngine checkers_game;
+    Checkers::CheckersEngine checkers_game;
 
     bool rtn_code {true};
 

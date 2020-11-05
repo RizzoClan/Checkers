@@ -22,6 +22,8 @@
 #include "PrintEnums.hpp"
 #include "common.hpp"
 
+namespace Checkers {
+
 enum class SelectCodes {
     Success,
     CannotMove, // i.e. its not your piece
@@ -131,6 +133,8 @@ class CheckersEngine : public Board {
          */
         virtual bool isValidMoveDir(const CheckersPlayer& player, const BoardCoord src, const BoardCoord dest) const;
 };
+
+} // end of Checkers namespace
 
 
 #endif

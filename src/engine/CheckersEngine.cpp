@@ -5,12 +5,14 @@ using std::cin;
 using std::cerr;
 using std::endl;
 
+namespace Checkers {
+
 /**************************************************** Constructors ***************************************************/
 CheckersEngine::CheckersEngine()
     // construct parent
     : Board(
-        CheckersConstants::standard_checkers_length,
-        CheckersConstants::standard_checkers_height
+        Checkers::Constants::standard_checkers_length,
+        Checkers::Constants::standard_checkers_height
     )
 
     // create players (teams are red and white)
@@ -346,4 +348,6 @@ bool CheckersEngine::isValidMoveDir(const CheckersPlayer& player, const BoardCoo
     else if ((can_move_up && delta_y > 0) || (can_move_down && delta_y < 0)) return false;
     else return true;
 }
+
+} // end of Checkers namespace
 

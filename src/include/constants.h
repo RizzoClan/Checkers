@@ -40,14 +40,19 @@ enum class BasicTeams {
     Black
 };
 
-namespace CheckersConstants {
-    // start off with 12 pieces
-    const int max_player_pieces {12};
-    const int max_pieces {max_player_pieces*2};
-    
-    // standard checkers board length
-    const int standard_checkers_length {8};
-    const int standard_checkers_height {8};
-}
+namespace Checkers {
+    namespace Constants {
+
+        // start off with 12 pieces
+        const int max_player_pieces {12};
+        const int max_pieces {max_player_pieces*2};
+        
+        // standard checkers board length
+        const int standard_checkers_length {8};
+        const int standard_checkers_height {8};
+
+    } // end of Checkers::Constants
+
+} // end of Checkers namespace
 
 #endif
