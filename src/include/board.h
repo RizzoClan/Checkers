@@ -14,9 +14,21 @@
 
 struct BoardCoord {
     BoardCoord(const int x, const int y) : x(x), y(y) {}
+
+    // printing
     friend std::ostream& operator<<(std::ostream& os, const BoardCoord& this_coord) {
         return os << '(' << this_coord.x << ',' << this_coord.y << ')';
     };
+
+    // arithmetic
+    BoardCoord operator+(const BoardCoord& coord) {
+        return BoardCoord{(x + coord.x), (y + coord.y)};
+    }
+    BoardCoord operator-(const BoardCoord& coord) {
+        return BoardCoord{(x - coord.x), (y - coord.y)};
+    }
+
+    // actual coordinates
     int x;
     int y;
 };
