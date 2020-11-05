@@ -27,6 +27,7 @@ find_package(CLI11 REQUIRED) # using https://cliutils.gitlab.io/CLI11Tutorial/
 
 # Include the package's header files
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/src/include") # contains OUR headers
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/src/include/helpers")
 include_directories(${CLI11_INCLUDE_DIR})
 
 
