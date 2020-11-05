@@ -38,6 +38,11 @@ bool CheckersPlayer::setPieceType(const BasicPieces new_piece_type) {
     return true;
 }
 
+bool CheckersPlayer::resetPieceCount() {
+    return setPieceCount(CheckersConstants::max_player_pieces);
+}
+
+
 bool CheckersPlayer::setPieceCount(const int new_piece_count) {
     num_pieces = new_piece_count;
 
