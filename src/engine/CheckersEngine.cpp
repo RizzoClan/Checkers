@@ -160,8 +160,8 @@ MoveReturns CheckersEngine::movePiece(
 
     const BasicPieces& src_type = getPiece(to_move_x, to_move_y).getType();
     const CheckersPlayer& src_player = piece_to_player.at(src_type);
-    if (!isValidMove(src_player, BoardCoord{to_move_x, to_move_y}, BoardCoord{dest_x, dest_y})) {
-        return MoveReturns::NotYourPiece;
+    if (!isValidMoveDir(src_player, BoardCoord{to_move_x, to_move_y}, BoardCoord{dest_x, dest_y})) {
+        return MoveReturns::WrongDirection;
     }
 
     while (move_rtn != MoveReturns::Success) {
@@ -325,8 +325,25 @@ bool CheckersEngine::isEnemyPiece(const Piece& src, const Piece& to_compare) con
     return src != to_compare && to_compare != BasicPieces::Empty;
 }
 
-bool CheckersEngine::isValidMove(const CheckersPlayer& player, const BoardCoord src, const BoardCoord dest) const {
-    throw("IMPLEMENT isValidMove");
-    return true; //TODO: stub
+bool CheckersEngine::isValidMoveDir(const CheckersPlayer& player, const BoardCoord src, const BoardCoord dest) const {
+    /**
+     * Red pieces can only move up (unless kinged)
+     * White pieces can only move down (unless kinged)
+     * y = [0-7] where 0 is top -- a move down has positive delta_yand vice versa
+     */
+
+    // TODO: implement "kingness"
+    // const bool move_1_dir = player.getPieceType() ? ;
+
+    // if can_move_up/down but not both, then automatically return false if moving opposite direction
+    const int delta_y = (dest-src).y;
+    const bool can_move_up = player.getPieceType() == BasicPieces::Red;
+    const bool can_move_down = player.getPieceType() == BasicPieces::White;
+    const bool can_move_any = can_move_up && can_move_down; // only true for kings
+
+    // check all conditions vs actuality
+    if (can_move_any) return true;
+    else if ((can_move_up && delta_y > 0) || (can_move_down && delta_y < 0)) return false;
+    else return true;
 }
 

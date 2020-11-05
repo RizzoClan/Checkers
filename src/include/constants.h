@@ -24,7 +24,8 @@ enum class MoveReturns {
     Success = 0,
     Invalid = -1,
     MoveAgain = 1,
-    NotYourPiece
+    NotYourPiece,
+    WrongDirection
 };
 
 // generally games have only 1-4 teams/players

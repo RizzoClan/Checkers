@@ -20,6 +20,7 @@
 #include "constants.h"
 #include "CheckersPlayer.h"
 #include "PrintEnums.hpp"
+#include "common.hpp"
 
 enum class SelectCodes {
     Success,
@@ -128,7 +129,7 @@ class CheckersEngine : public Board {
          * @Return: true = is okay, false = invalid move
          * @Note: Invalid could mean player tried to move piece opposite of allowed direction
          */
-        virtual bool isValidMove(const CheckersPlayer& player, const BoardCoord src, const BoardCoord dest) const;
+        virtual bool isValidMoveDir(const CheckersPlayer& player, const BoardCoord src, const BoardCoord dest) const;
 };
 
 
