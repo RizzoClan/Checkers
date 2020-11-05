@@ -21,11 +21,11 @@ struct BoardCoord {
     };
 
     // arithmetic
-    BoardCoord operator+(const BoardCoord& coord) {
-        return BoardCoord{(x + coord.x), (y + coord.y)};
+    friend BoardCoord operator+(const BoardCoord& coord1, const BoardCoord& coord2) {
+        return BoardCoord{(coord1.x + coord2.x), (coord1.y + coord2.y)};
     }
-    BoardCoord operator-(const BoardCoord& coord) {
-        return BoardCoord{(x - coord.x), (y - coord.y)};
+    friend BoardCoord operator-(const BoardCoord& coord1, const BoardCoord& coord2) {
+        return BoardCoord{(coord1.x - coord2.x), (coord1.y - coord2.y)};
     }
 
     // actual coordinates
