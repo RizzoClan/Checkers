@@ -23,7 +23,8 @@ enum class BasicPieces : char {
 enum class MoveReturns {
     Success = 0,
     Invalid = -1,
-    MoveAgain = 1
+    MoveAgain = 1,
+    NotYourPiece
 };
 
 // generally games have only 1-4 teams/players

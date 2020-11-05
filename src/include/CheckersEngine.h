@@ -9,6 +9,8 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <array>
+#include <map>
 #include <math.h>
 
 // 3rd Party Includes
@@ -75,7 +77,8 @@ class CheckersEngine : public Board {
 
     private:
         /********************************************* Private Variables *********************************************/
-        CheckersPlayer players[2]; // there are 2 players for checkers
+        // maps piece types to players
+        std::map<BasicPieces, CheckersPlayer> piece_to_player;
 
         /******************************************* Helper Board Functions ******************************************/
 
@@ -119,6 +122,13 @@ class CheckersEngine : public Board {
          * @Returns: true for success, false for failure
          */
         virtual bool initPlayerOnBoard(const CheckersPlayer& player);
+
+        /**
+         * @Brief: Checks if move is valid based on src->dest and player who is moving
+         * @Return: true = is okay, false = invalid move
+         * @Note: Invalid could mean player tried to move piece opposite of allowed direction
+         */
+        virtual bool isValidMove(const CheckersPlayer& player, const BoardCoord src, const BoardCoord dest) const;
 };
 
 

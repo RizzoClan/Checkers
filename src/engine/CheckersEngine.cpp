@@ -14,9 +14,10 @@ CheckersEngine::CheckersEngine()
     )
 
     // create players (teams are red and white)
-    , players({
-        CheckersPlayer{BasicTeams::Team1, BasicPieces::Red},
-        CheckersPlayer{BasicTeams::Team2, BasicPieces::White}
+    // map the different colors to their corresponding elements in the array
+    , piece_to_player({
+        {BasicPieces::Red,  CheckersPlayer{BasicTeams::Team1, BasicPieces::Red}},
+        {BasicPieces::White, CheckersPlayer{BasicTeams::Team2, BasicPieces::White}}
     })
 {
     if(!resetBoard()) {
@@ -119,7 +120,8 @@ bool CheckersEngine::initPlayerOnBoard(const CheckersPlayer& player) {
 
 
 bool CheckersEngine::resetBoard() {
-    for (CheckersPlayer& player_to_init : players) {
+    for (auto& piece_player_pair : piece_to_player) {
+        CheckersPlayer& player_to_init = piece_player_pair.second;
 
         if(!initPlayerOnBoard(player_to_init)) {
             // if failed placing on board, print it and reset/wipe board
@@ -155,6 +157,13 @@ MoveReturns CheckersEngine::movePiece(
     int to_move_y = start_y;
     int dest_x = end_x; 
     int dest_y = end_y; 
+
+    const BasicPieces& src_type = getPiece(to_move_x, to_move_y).getType();
+    const CheckersPlayer& src_player = piece_to_player.find(src_type)->second;
+    if (!isValidMove(src_player, BoardCoord{to_move_x, to_move_y}, BoardCoord{dest_x, dest_y})) {
+        return MoveReturns::NotYourPiece;
+    }
+
     while (move_rtn != MoveReturns::Success) {
         // try to move the piece
         move_rtn = tryMove(to_move_x, to_move_y, dest_x, dest_y);
@@ -315,3 +324,8 @@ bool CheckersEngine::isEnemyPiece(const Piece& src, const Piece& to_compare) con
     // since there are only two types of pieces (binary coloring), can do a simple !=
     return src != to_compare && to_compare != BasicPieces::Empty;
 }
+
+bool CheckersEngine::isValidMove(const CheckersPlayer& player, const BoardCoord src, const BoardCoord dest) const {
+    return true; //TODO: stub
+}
+

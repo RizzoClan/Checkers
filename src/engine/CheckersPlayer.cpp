@@ -5,6 +5,12 @@ using std::cerr;
 using std::endl;
 
 /**************************************************** Constructors ***************************************************/
+
+/**
+ * @Brief: Constructor to make a player with enough info to function
+ * @Args: team: The team the piece belongs to - should be different from another piece's
+ * @Args: associated_piece - The piece type associated with the player
+ */
 CheckersPlayer::CheckersPlayer(const BasicTeams _team, const BasicPieces associated_piece)
     : team(_team)
     , piece_type(associated_piece)
