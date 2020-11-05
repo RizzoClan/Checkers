@@ -12,7 +12,7 @@ Piece::Piece(const BasicPieces type)
 
 // copy constructor
 Piece::Piece(const Piece& piece_obj) 
-    : piece_type(piece_obj.get_type())
+    : piece_type(piece_obj.getType())
 {
 
 }
@@ -23,39 +23,39 @@ Piece::~Piece() {
 
 
 /*************************************** Getters and Setters *************************************/
-BasicPieces Piece::get_type() const {
+BasicPieces Piece::getType() const {
     return piece_type;
 }
 
-void Piece::set_type(const BasicPieces new_type) {
+void Piece::setType(const BasicPieces new_type) {
     piece_type = new_type;
 }
 
 
 /************************************************* Operators *************************************************/
 bool Piece::operator==(const Piece& to_compare) const {
-    return get_type() == to_compare.get_type();
+    return getType() == to_compare.getType();
 }
 
 bool Piece::operator!=(const Piece& to_compare) const {
-    return get_type() != to_compare.get_type();
+    return getType() != to_compare.getType();
 }
 
 std::ostream& operator<<(std::ostream& os, const Piece& this_piece) {
-    os << static_cast<char>(this_piece.get_type());
+    os << static_cast<char>(this_piece.getType());
     return os;
 }
 
 bool Piece::operator!=(const BasicPieces& to_compare) const {
-    return get_type() != to_compare;
+    return getType() != to_compare;
 }
 bool Piece::operator==(const BasicPieces& to_compare) const {
-    return get_type() == to_compare;
+    return getType() == to_compare;
 
 }
 
 
 /********************************************** Helper Functions **********************************************/
 bool Piece::isEmpty() const {
-    return get_type() == BasicPieces::Empty;
+    return getType() == BasicPieces::Empty;
 }

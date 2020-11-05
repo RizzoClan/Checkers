@@ -25,8 +25,8 @@ class Piece {
         virtual ~Piece();
 
         /******************************************** Getters and Setters ********************************************/
-        BasicPieces get_type() const;
-        void set_type(const BasicPieces new_type);
+        BasicPieces getType() const;
+        void setType(const BasicPieces new_type);
 
         /************************************************* Operators *************************************************/
         bool operator==(const Piece& to_compare) const;
