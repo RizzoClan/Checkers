@@ -36,6 +36,10 @@ int Board::getHeight() const {
     return height;
 }
 
+const Piece& Board::getPiece(const BoardCoord& coord) const {
+    return getPiece(coord.x, coord.y);
+}
+
 const Piece& Board::getPiece(int x, int y) const {
     return getBoard()[x][y];
 }
