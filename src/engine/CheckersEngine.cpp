@@ -159,7 +159,7 @@ MoveReturns CheckersEngine::movePiece(
     int dest_y = end_y; 
 
     const BasicPieces& src_type = getPiece(to_move_x, to_move_y).getType();
-    const CheckersPlayer& src_player = piece_to_player.find(src_type)->second;
+    const CheckersPlayer& src_player = piece_to_player.at(src_type);
     if (!isValidMove(src_player, BoardCoord{to_move_x, to_move_y}, BoardCoord{dest_x, dest_y})) {
         return MoveReturns::NotYourPiece;
     }
@@ -326,6 +326,7 @@ bool CheckersEngine::isEnemyPiece(const Piece& src, const Piece& to_compare) con
 }
 
 bool CheckersEngine::isValidMove(const CheckersPlayer& player, const BoardCoord src, const BoardCoord dest) const {
+    throw("IMPLEMENT isValidMove");
     return true; //TODO: stub
 }
 
