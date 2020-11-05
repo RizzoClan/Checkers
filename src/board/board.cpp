@@ -98,28 +98,17 @@ std::ostream& operator<<(std::ostream& os, const Board& this_board) {
     // extra on right is to round off border
     std::string top_bot_border {std::string(this_board.getLength()*4, '-') + '-'};
 
-    // count row to print for board
-    int row {0};
-
-    for(auto& col_vec : this_board.getBoard()) {
-
+    // increment y's first to print one row at a time
+    for (int y = 0; y < this_board.getHeight(); y++) {
         // print the top border between rows (print the char for each col)
         os << top_bot_border << endl;
 
-        for (auto& piece : col_vec) {
-            os << "| " << static_cast<char>(piece.get_type()) << " ";
+        for (int x = 0; x < this_board.getLength(); x++) {
+            os << "| " << static_cast<char>(this_board.getPiece(x,y).getType()) << " ";
         }
-        /*// reverse vector to print correctly
-        for (int i=col_vec.size()-1; i >= 0; i--) {
-            os << "| " << static_cast<char>(col_vec[i].get_type()) << " ";
-        }
-        */
 
         // print right most border when done with line
-        os << "| " << row << endl;
-
-        // decrement row counter
-        ++row;
+        os << "| " << y << endl;
     }
     // print the bottom border at end
     os << top_bot_border << endl;
