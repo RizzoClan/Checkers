@@ -1,10 +1,6 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-// standard checkers board length
-const int standard_checkers_length {8};
-const int standard_checkers_height {8};
-
 /**
  * @Brief: Enum containing basic piece types
  *  (Use BasicPieces::Empty to say no piece is there)
@@ -41,5 +37,15 @@ enum class BasicTeams {
     White,
     Black
 };
+
+namespace CheckersConstants {
+    // start off with 12 pieces
+    const int max_player_pieces {12};
+    const int max_pieces {max_player_pieces*2};
+    
+    // standard checkers board length
+    const int standard_checkers_length {8};
+    const int standard_checkers_height {8};
+}
 
 #endif

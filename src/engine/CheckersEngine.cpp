@@ -6,8 +6,13 @@ using std::cerr;
 using std::endl;
 
 /**************************************************** Constructors ***************************************************/
-CheckersEngine::CheckersEngine() 
-    : Board(standard_checkers_length, standard_checkers_height) // construct parent
+CheckersEngine::CheckersEngine()
+    // construct parent
+    : Board(
+        CheckersConstants::standard_checkers_length,
+        CheckersConstants::standard_checkers_height
+    )
+
     // create players (teams are red and white)
     , players({
         CheckersPlayer{BasicTeams::Team1, BasicPieces::Red},

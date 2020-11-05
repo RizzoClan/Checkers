@@ -8,7 +8,7 @@ using std::endl;
 CheckersPlayer::CheckersPlayer(const BasicTeams _team, const BasicPieces associated_piece)
     : team(_team)
     , piece_type(associated_piece)
-    , num_pieces(12) // start off with 12 pieces)
+    , num_pieces(CheckersConstants::max_player_pieces) // start off with 12 pieces
     , hasLost(false)
 {
 
