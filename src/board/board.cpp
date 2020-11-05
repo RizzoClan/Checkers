@@ -47,6 +47,15 @@ std::vector<std::vector<Piece>>& Board::getBoard() { return board_pieces; }
 
 
 /********************************************* Board Functions  *********************************************/
+bool Board::resetBoard() {
+    for (auto& row : getBoard()) {
+        for (auto& cell : row) {
+            cell = Piece();
+        }
+    }
+    return true;
+}
+
 bool Board::isEmpty(const int x, const int y) const {
     return getBoard()[x][y].isEmpty();
 }

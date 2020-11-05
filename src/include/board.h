@@ -49,6 +49,12 @@ class Board {
         /********************************************** Board Functions **********************************************/
 
         /**
+         * @Brief: Wipe the board back to default
+         * @Return: true if successful, false if failure
+         */
+        virtual bool resetBoard();
+
+        /**
          * @Brief: Insert a piece on the board
          * @Return: True (1) for success, False (0) if spot taken already
          */
