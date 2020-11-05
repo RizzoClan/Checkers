@@ -19,7 +19,10 @@ CheckersEngine::CheckersEngine()
         CheckersPlayer{BasicTeams::Team2, BasicPieces::White}
     })
 {
-
+    if(!resetBoard()) {
+        cerr << "Error creating board" << endl;
+        return;
+    }
 }
 
 CheckersEngine::~CheckersEngine() {
@@ -68,6 +71,63 @@ PieceSelectReturns CheckersEngine::selectMoveDest(const int src_x, const int src
             cout << "Invalid destination. Please try again." << endl;
         }
     }
+}
+
+bool CheckersEngine::initPlayerOnBoard(const CheckersPlayer& player) {
+    /**
+     * (see https://ctycms.com/mn-rochester/docs/checkers-instructions.pdf)
+     * Starting Board:
+     *      Use Top & Bot 3 Rows (2 middle rows are empty)
+     *      Red (Bot) vs White (Top)
+     *      Pieces can only be placed on darkspaces (odd)
+     *      i.e.: 
+     *          Top: (1,0), (3,0), (0,1), (2,1), (1,2), ...
+     *          Bot: (0,5), (1,6), (0,7), ...
+     *          Mid: Y = 3 or 4
+     */
+
+    // to make repeatable, place pieces left->right from top->bot
+    const BasicPieces piece_type = player.getPieceType();
+    if (piece_type != BasicPieces::Red && piece_type != BasicPieces::White) {
+        throw("Unexpected piece type for Checkers!");
+    }
+
+    // determine offsets based on color 
+    // (white first piece in row y=5)
+    // (white first piece is in col x=1)
+    const int y_offset = piece_type == BasicPieces::Red ? 0 : 5;
+    const int x_offset = piece_type == BasicPieces::Red ? 0 : 1;
+
+    // place in dark spots (x+y==odd)
+    for (int x = x_offset; x < getLength(); x++) {
+        // has to be odd and not in row 3 or 4
+        for (int y = y_offset; y < getHeight() && (x+y) % 2 == 1 && (y != 3 && y != 4); y++) {
+            // if fail to insert piece, failed and return
+            cout << "Placing piece @ " << BoardCoord{x,y} << endl;
+            if(!insertPiece(x, y, piece_type)) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+
+bool CheckersEngine::resetBoard() {
+    for (CheckersPlayer& player_to_init : players) {
+        if(!initPlayerOnBoard(player_to_init)) {
+            // if failed placing on board, reset failed & wipe board
+            cerr << "Failed inserting piece... resetting board to scratch" << endl;
+            Board::resetBoard();
+            return false;
+        }
+
+        // reset counters of player
+        player_to_init.resetPieceCount();
+    }
+
+    return true;
 }
 
 /************************************** Move Piece Function **************************************/

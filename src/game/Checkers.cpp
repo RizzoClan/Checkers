@@ -19,17 +19,14 @@ int main() {
     // declare board object
     CheckersEngine checkers_game;
 
-    bool rtn_code {true};
-    rtn_code = checkers_game.insertPiece(0,0, BasicPieces::Black); // piece to move for double jump
-    rtn_code = checkers_game.insertPiece(1,1, BasicPieces::White);
-    rtn_code = checkers_game.insertPiece(3,3, BasicPieces::White); // piece to double jump
+    // bool rtn_code {true};
 
     cout << "Board Start: " << endl << checkers_game << endl;
 
-    rtn_code = checkers_game.movePiece(0,0) == MoveReturns::Success;
-    if (!rtn_code) {
-        cerr << "Error moving piece" << endl;
-    }
+    // rtn_code = checkers_game.movePiece(0,0) == MoveReturns::Success;
+    // if (!rtn_code) {
+    //     cerr << "Error moving piece" << endl;
+    // }
 
     // rtn_code = checkers_game.removePiece(1,1, BasicPieces::Empty);
     // if (!rtn_code) {

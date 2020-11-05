@@ -70,6 +70,8 @@ class CheckersEngine : public Board {
          */
         virtual PieceSelectReturns selectMoveDest(const int src_x=-1, const int src_y=-1);
 
+        virtual bool resetBoard();
+
     private:
         /********************************************* Private Variables *********************************************/
         CheckersPlayer players[2]; // there are 2 players for checkers
@@ -109,6 +111,13 @@ class CheckersEngine : public Board {
          * @Note: True for (Red, White), (White, Red), (White, Black), (Black, White)
          */
         virtual bool isEnemyPiece(const Piece& src, const Piece& to_compare) const;
+
+        /**
+         * @Brief: Helps place a player's pieces on the board correctly
+         * @Args: player - The player to init on the board
+         * @Returns: true for success, false for failure
+         */
+        virtual bool initPlayerOnBoard(const CheckersPlayer& player);
 };
 
 
