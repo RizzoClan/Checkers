@@ -162,7 +162,10 @@ MoveReturns CheckersEngine::movePiece(
 
     const BasicPieces& src_type = getPiece(to_move_x, to_move_y).getType();
     const CheckersPlayer& src_player = piece_to_player.at(src_type);
-    if (!isValidMoveDir(src_player, BoardCoord{to_move_x, to_move_y}, BoardCoord{dest_x, dest_y})) {
+    if (!isValidMoveDir(
+        src_player, BaseBoard::BoardCoord{to_move_x, to_move_y},
+        BaseBoard::BoardCoord{dest_x, dest_y}
+    )) {
         return MoveReturns::WrongDirection;
     }
 
@@ -223,8 +226,8 @@ MoveReturns CheckersEngine::tryMove(const int start_x, const int start_y, const 
     if (diag_move) {
         //  get relative pieces
         auto& curr_board = getBoard();
-        Piece& src_piece = curr_board[start_x][start_y];
-        Piece& dest_piece = curr_board[end_x][end_y];
+        BaseBoard::Piece& src_piece = curr_board[start_x][start_y];
+        BaseBoard::Piece& dest_piece = curr_board[end_x][end_y];
 
         //  check if there is a piece in dest or jumping over an enemy
         if (dest_piece.isEmpty() && (delta_y == 1 || delta_y == -1)) {
@@ -284,7 +287,7 @@ bool CheckersEngine::isJumpable(const int x, const int y, const int slope, const
     for (int adj_degree : {1, 2}) {
         const int dest_x = x + slope*adj_degree; // x +/-1 * adj_degree
         const int dest_y = y + vert_scale*adj_degree;
-        const Piece& adj_piece = getPiece(dest_x, dest_y);
+        const BaseBoard::Piece& adj_piece = getPiece(dest_x, dest_y);
         if (adj_degree == 1 && !isEnemyPiece(getPiece(x,y), adj_piece)) return false;
         else if (adj_degree == 2 && adj_piece.isEmpty()) return true;
         else if (adj_degree == 2) return false;
@@ -322,12 +325,16 @@ bool CheckersEngine::canAttack(const int src_x, const int src_y) const {
     return false;
 }
 
-bool CheckersEngine::isEnemyPiece(const Piece& src, const Piece& to_compare) const {
+bool CheckersEngine::isEnemyPiece(const BaseBoard::Piece& src, const BaseBoard::Piece& to_compare) const {
     // since there are only two types of pieces (binary coloring), can do a simple !=
     return src != to_compare && to_compare != BasicPieces::Empty;
 }
 
-bool CheckersEngine::isValidMoveDir(const CheckersPlayer& player, const BoardCoord src, const BoardCoord dest) const {
+bool CheckersEngine::isValidMoveDir(
+    const CheckersPlayer& player,
+    const BaseBoard::BoardCoord src,
+    const BaseBoard::BoardCoord dest
+) const {
     /**
      * Red pieces can only move up (unless kinged)
      * White pieces can only move down (unless kinged)

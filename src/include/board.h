@@ -12,6 +12,8 @@
 // Our Includes
 #include "pieces.h"
 
+namespace BaseBoard {
+
 struct BoardCoord {
     BoardCoord(const int x, const int y) : x(x), y(y) {}
 
@@ -116,5 +118,8 @@ class Board {
          */
         std::string createCoordStr(const int x, const int y) const;
 };
+
+} // end of BaseBoard namespace
+
 
 #endif

@@ -10,6 +10,8 @@
 // Our Includes
 #include "constants.h"
 
+namespace BaseBoard {
+
 class Piece {
     public:
         /************************************************ Constructors ***********************************************/
@@ -44,5 +46,7 @@ class Piece {
         BasicPieces piece_type;
 
 };
+
+} // end of BaseBoard namespace
 
 #endif

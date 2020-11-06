@@ -42,7 +42,7 @@ struct PieceSelectReturns {
     int y;
 };
 
-class CheckersEngine : public Board {
+class CheckersEngine : public BaseBoard::Board {
     public:
         /************************************************ Constructors ***********************************************/
         CheckersEngine();
@@ -117,7 +117,7 @@ class CheckersEngine : public Board {
          * @Return: True (1) for is enemy, False (0) if on same team
          * @Note: True for (Red, White), (White, Red), (White, Black), (Black, White)
          */
-        virtual bool isEnemyPiece(const Piece& src, const Piece& to_compare) const;
+        virtual bool isEnemyPiece(const BaseBoard::Piece& src, const BaseBoard::Piece& to_compare) const;
 
         /**
          * @Brief: Helps place a player's pieces on the board correctly
@@ -131,7 +131,8 @@ class CheckersEngine : public Board {
          * @Return: true = is okay, false = invalid move
          * @Note: Invalid could mean player tried to move piece opposite of allowed direction
          */
-        virtual bool isValidMoveDir(const CheckersPlayer& player, const BoardCoord src, const BoardCoord dest) const;
+        virtual bool isValidMoveDir(const CheckersPlayer& player, const BaseBoard::BoardCoord src, 
+            const BaseBoard::BoardCoord dest) const;
 };
 
 } // end of Checkers namespace

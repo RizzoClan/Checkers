@@ -4,6 +4,8 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
+namespace BaseBoard {
+
 /**************************************************** Constructors ***************************************************/
 Board::Board(const int new_length, const int new_height)
     : length(new_length)
@@ -132,3 +134,6 @@ std::ostream& operator<<(std::ostream& os, const Board& this_board) {
 std::string Board::createCoordStr(const int x, const int y) const {
     return " (" + std::to_string(x) + ',' + std::to_string(y) + ") ";
 }
+
+} // end of BaseBoard namespace
+

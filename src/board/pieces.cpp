@@ -1,5 +1,6 @@
 #include "pieces.h"
 
+namespace BaseBoard {
 
 /****************************************** Constructors *****************************************/
 // default everything to zero except type for default constructor
@@ -58,3 +59,6 @@ bool Piece::operator==(const BasicPieces& to_compare) const {
 bool Piece::isEmpty() const {
     return getType() == BasicPieces::Empty;
 }
+
+
+} // end of BaseBoard namespace
