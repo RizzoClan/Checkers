@@ -55,8 +55,8 @@ class CheckersEngine : public BaseBoard::Board {
          * @Args: start -> end
          * @Returns: MoveReturns enum (MoveReturns::Invalid == error), see enum for other meanings
          */
-        virtual MoveReturns movePiece(const int start_x, const int start_y, const int end_x, const int end_y);
-        virtual MoveReturns movePiece(const int start_x, const int start_y);
+        virtual BaseBoard::MoveReturns movePiece(const int start_x, const int start_y, const int end_x, const int end_y);
+        virtual BaseBoard::MoveReturns movePiece(const int start_x, const int start_y);
 
         /**
          * @Brief: Ask user for coords to select a piece
@@ -81,7 +81,7 @@ class CheckersEngine : public BaseBoard::Board {
     private:
         /********************************************* Private Variables *********************************************/
         // maps piece types to players
-        std::map<BasicPieces, CheckersPlayer> piece_to_player;
+        std::map<BaseBoard::BasicPieces, CheckersPlayer> piece_to_player;
 
         /******************************************* Helper Board Functions ******************************************/
 
@@ -108,7 +108,7 @@ class CheckersEngine : public BaseBoard::Board {
          * @Note: Different from base board because has to handle jumping over and removal of enemy pieces
          * @Note: Pieces move diagonally forward (backward if kinged)
          */
-        MoveReturns tryMove(const int start_x, const int start_y, const int end_x, const int end_y);
+        BaseBoard::MoveReturns tryMove(const int start_x, const int start_y, const int end_x, const int end_y);
 
         /**
          * @Brief: Check if "to_compare" is an enemy piece to src

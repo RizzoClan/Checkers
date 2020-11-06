@@ -1,6 +1,9 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
+
+namespace BaseBoard {
+
 /**
  * @Brief: Enum containing basic piece types
  *  (Use BasicPieces::Empty to say no piece is there)
@@ -39,6 +42,8 @@ enum class BasicTeams {
     White,
     Black
 };
+
+} // end of BaseBoard namespace
 
 namespace Checkers {
     namespace Constants {

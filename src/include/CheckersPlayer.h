@@ -23,18 +23,19 @@ class CheckersPlayer {
          * @Args - team: The player's team id
          * @Args - associated_piece: the piece type to associate the player with (Red or White)
          */
-        explicit CheckersPlayer(const BasicTeams team, const BasicPieces associated_piece);
+        explicit CheckersPlayer(const BaseBoard::BasicTeams team, 
+            const BaseBoard::BasicPieces associated_piece);
         virtual ~CheckersPlayer();
 
         /******************************************** Getters and Setters ********************************************/
         // returns Team1 or Team2
-        BasicTeams getTeam() const;
+        BaseBoard::BasicTeams getTeam() const;
         // returns true for success
-        bool setTeam(const BasicTeams new_team);
+        bool setTeam(const BaseBoard::BasicTeams new_team);
 
-        BasicPieces getPieceType() const;
+        BaseBoard::BasicPieces getPieceType() const;
         // true for succes
-        bool setPieceType(const BasicPieces new_piece_type);
+        bool setPieceType(const BaseBoard::BasicPieces new_piece_type);
 
         // set piece count back to max
         bool resetPieceCount();
@@ -44,8 +45,8 @@ class CheckersPlayer {
         /********************************************** Player Functions **********************************************/
 
     private:
-        BasicTeams team;
-        BasicPieces piece_type;
+        BaseBoard::BasicTeams team;
+        BaseBoard::BasicPieces piece_type;
         int num_pieces; // 0-12 pieces
         bool hasLost;
 

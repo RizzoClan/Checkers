@@ -23,8 +23,8 @@ int main() {
 
     cout << "Board Start: " << endl << checkers_game << endl;
 
-    rtn_code = checkers_game.movePiece(2,5, 3, 4) == MoveReturns::Success; // no error
-    rtn_code = checkers_game.movePiece(3, 4, 2,5) == MoveReturns::Success; // error
+    rtn_code = checkers_game.movePiece(2,5, 3, 4) == BaseBoard::MoveReturns::Success; // no error
+    rtn_code = checkers_game.movePiece(3, 4, 2,5) == BaseBoard::MoveReturns::Success; // error
     if (!rtn_code) {
         cerr << "Error moving piece" << endl;
     }

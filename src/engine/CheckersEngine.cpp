@@ -1,9 +1,15 @@
 #include "CheckersEngine.h"
 
+// common std namespace elements
 using std::cout;
 using std::cin;
 using std::cerr;
 using std::endl;
+
+// our common namespace elements
+using BaseBoard::BasicPieces;
+using BaseBoard::BasicTeams;
+using BaseBoard::MoveReturns;
 
 namespace Checkers {
 

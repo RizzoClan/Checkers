@@ -1,5 +1,6 @@
 #include "CheckersPlayer.h"
 
+// common std namespace elements
 using std::cout;
 using std::cerr;
 using std::endl;
@@ -13,7 +14,9 @@ namespace Checkers {
  * @Args: team: The team the piece belongs to - should be different from another piece's
  * @Args: associated_piece - The piece type associated with the player
  */
-CheckersPlayer::CheckersPlayer(const BasicTeams _team, const BasicPieces associated_piece)
+CheckersPlayer::CheckersPlayer(
+    const BaseBoard::BasicTeams _team,
+    const BaseBoard::BasicPieces associated_piece)
     : team(_team)
     , piece_type(associated_piece)
     , num_pieces(Checkers::Constants::max_player_pieces) // start off with 12 pieces
@@ -28,20 +31,20 @@ CheckersPlayer::~CheckersPlayer() {
 
 
 /******************************************** Getters and Setters ********************************************/
-BasicTeams CheckersPlayer::getTeam() const {
+BaseBoard::BasicTeams CheckersPlayer::getTeam() const {
     return team;
 }
 
-bool CheckersPlayer::setTeam(const BasicTeams new_team) {
+bool CheckersPlayer::setTeam(const BaseBoard::BasicTeams new_team) {
     team = new_team;
     return true;
 }
 
-BasicPieces CheckersPlayer::getPieceType() const {
+BaseBoard::BasicPieces CheckersPlayer::getPieceType() const {
     return piece_type;
 }
 
-bool CheckersPlayer::setPieceType(const BasicPieces new_piece_type) {
+bool CheckersPlayer::setPieceType(const BaseBoard::BasicPieces new_piece_type) {
     piece_type = new_piece_type;
     return true;
 }
