@@ -254,7 +254,16 @@ MoveReturns CheckersEngine::tryMove(const int start_x, const int start_y, const 
 
             // jumped over a enemy piece
             // thus, move + remove jumped over piece
-            removePiece(start_x+delta_x/2, start_y+delta_y/2);
+            if(removePiece(start_x+delta_x/2, start_y+delta_y/2)) {
+                // successfully removed (decrement piece count)
+                CheckersPlayer& to_decr {piece_to_player.at(dest_piece.getType())};
+                if (!to_decr.setPieceCount(to_decr.getPieceCount()-1)) {
+                    // count--
+                    cerr << "Failed to decrement piece counter" << endl;
+                }
+            } else {
+                cerr << "Failed to remove the piece" << endl;
+            }
 
             // move src piece
             MoveReturns mv_rtn = Board::movePiece(start_x, start_y, end_x, end_y);
