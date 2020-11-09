@@ -28,8 +28,9 @@ BasicPieces Piece::getType() const {
     return piece_type;
 }
 
-void Piece::setType(const BasicPieces new_type) {
+bool Piece::setType(const BasicPieces new_type) {
     piece_type = new_type;
+    return true;
 }
 
 

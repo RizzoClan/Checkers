@@ -28,7 +28,7 @@ class Piece {
 
         /******************************************** Getters and Setters ********************************************/
         BasicPieces getType() const;
-        void setType(const BasicPieces new_type);
+        bool setType(const BasicPieces new_type);
 
         /************************************************* Operators *************************************************/
         bool operator==(const Piece& to_compare) const;
