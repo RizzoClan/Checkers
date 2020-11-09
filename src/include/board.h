@@ -111,10 +111,10 @@ class Board {
     private:
         int length; // x
         int height; // y
-        // board needs 2D array to represent all pieces
-        std::vector<std::vector<Piece>> board_pieces;
 
     protected:
+        // board needs 2D array to represent all pieces
+        std::vector<std::vector<Piece>> board_pieces;
         /********************************************** Helper Functions **********************************************/
         /**
          * @Brief: Creates preformatted string containing " (x,y) "
