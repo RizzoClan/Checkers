@@ -36,6 +36,7 @@ struct BoardCoord {
     int y;
 };
 
+template <class PieceType>
 class Board {
     public:
         /************************************************ Constructors ***********************************************/
@@ -54,12 +55,12 @@ class Board {
          * @Args: x & y are the coordinates
          * @Note: Used in engines & logic
          */
-        const Piece& getPiece(int x, int y) const;
-        const Piece& getPiece(const BoardCoord& coord) const;
+        const PieceType& getPiece(int x, int y) const;
+        const PieceType& getPiece(const BoardCoord& coord) const;
 
         // need const & non-const types of getBoard() -> one for editing elements, and one for reference only
-        const std::vector<std::vector<Piece>>& getBoard() const; // completely const
-        std::vector<std::vector<Piece>>& getBoard(); // not const
+        const std::vector<std::vector<PieceType>>& getBoard() const; // completely const
+        std::vector<std::vector<PieceType>>& getBoard(); // not const
 
         /********************************************** Board Functions **********************************************/
 
@@ -98,23 +99,28 @@ class Board {
          * @Args: to_compare: Piece that is being check if is enemy to src
          * @Return: True (1) for is enemy, False (0) if on same team
          */
-        virtual bool isEnemyPiece(const Piece& src, const Piece& to_compare) const = 0;
+        virtual bool isEnemyPiece(const PieceType& src, const PieceType& to_compare) const = 0;
 
 
         /**
          * @Brief: Allow ostream to overwrite '<<' so it can be used to print board with cout
+         * @HACK in order to work with template class:
+         *      inline << function with a reference to "print" class method that can be overriden
          */
-        friend std::ostream& operator<<(std::ostream& os, const Board& this_board);
+        virtual std::ostream& print(std::ostream& os, const Board& this_board) const;
+        friend std::ostream& operator<<(std::ostream& os, const Board& this_board) {
+            return this_board.print(os, this_board);
+        }
 
         bool isEmpty(const int x, const int y) const;
 
     private:
         int length; // x
         int height; // y
+        // board needs 2D array to represent all pieces
+        std::vector<std::vector<PieceType>> board_pieces;
 
     protected:
-        // board needs 2D array to represent all pieces
-        std::vector<std::vector<Piece>> board_pieces;
         /********************************************** Helper Functions **********************************************/
         /**
          * @Brief: Creates preformatted string containing " (x,y) "

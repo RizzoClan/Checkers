@@ -1,4 +1,5 @@
 #include "CheckersBoard.h"
+#include "board.cpp"
 
 namespace Checkers {
 
@@ -10,8 +11,8 @@ using std::endl;
 /**************************************************** Constructors ***************************************************/
 CheckersBoard::CheckersBoard()
     // can set the board size to be standard size
-    : Board(Constants::standard_checkers_length, Constants::standard_checkers_height)
-    , board_pieces(getLength(), std::vector<CheckersPiece>(getHeight(), CheckersPiece()))
+    : Board<CheckersPiece>(
+        Constants::standard_checkers_length, Constants::standard_checkers_height)
 {
 
 }

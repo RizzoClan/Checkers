@@ -270,8 +270,8 @@ MoveReturns CheckersEngine::tryMove(const int start_x, const int start_y, const 
     if (diag_move) {
         //  get relative pieces
         auto& curr_board = getBoard();
-        BaseBoard::Piece& src_piece = curr_board[start_x][start_y];
-        BaseBoard::Piece& dest_piece = curr_board[end_x][end_y];
+        CheckersPiece& src_piece = curr_board[start_x][start_y];
+        CheckersPiece& dest_piece = curr_board[end_x][end_y];
 
         //  check if there is a piece in dest or jumping over an enemy
         if (dest_piece.isEmpty() && (delta_y == 1 || delta_y == -1)) {
@@ -343,7 +343,7 @@ bool CheckersEngine::isJumpable(const int x, const int y, const int slope, const
         // prevent out of bounds error
         if (dest_x < 0 || dest_y < 0 || dest_x >= getLength() || dest_y >= getHeight()) continue;
 
-        const BaseBoard::Piece& adj_piece = getPiece(dest_x, dest_y);
+        const CheckersPiece& adj_piece = getPiece(dest_x, dest_y);
         if (adj_degree == 1 && !isEnemyPiece(getPiece(x,y), adj_piece)) return false;
         else if (adj_degree == 2 && adj_piece.isEmpty()) return true;
         else if (adj_degree == 2) return false;
@@ -381,7 +381,7 @@ bool CheckersEngine::canAttack(const int src_x, const int src_y) const {
     return false;
 }
 
-bool CheckersEngine::isEnemyPiece(const BaseBoard::Piece& src, const BaseBoard::Piece& to_compare) const {
+bool CheckersEngine::isEnemyPiece(const CheckersPiece& src, const CheckersPiece& to_compare) const {
     // since there are only two types of pieces (binary coloring), can do a simple !=
     return src != to_compare && to_compare != BasicPieces::Empty;
 }

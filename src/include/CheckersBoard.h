@@ -14,9 +14,13 @@
 #include "CheckersPieces.h"
 #include "PrintEnums.hpp"
 
+// explicit instantiation to compile .cpp for the CheckersPiece class
+template class BaseBoard::Board<Checkers::CheckersPiece>;
+
 namespace Checkers {
 
-class CheckersBoard : public BaseBoard::Board {
+
+class CheckersBoard : public BaseBoard::Board<CheckersPiece> {
 
     public:
         /************************************************ Constructors ***********************************************/
@@ -27,13 +31,14 @@ class CheckersBoard : public BaseBoard::Board {
         /******************************************** Getters and Setters ********************************************/
 
         /********************************************** Board Functions **********************************************/
+        // make child define what this means
+        virtual bool isEnemyPiece(const CheckersPiece& src, const CheckersPiece& to_compare) const = 0;
+
     private:
         /********************************************** Helper Functions *********************************************/
 
 
     protected:
-        // board needs 2D array to represent all pieces
-        std::vector<std::vector<CheckersPiece>> board_pieces;
 
 }; // end of CheckersBoard class
 

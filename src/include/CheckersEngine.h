@@ -42,7 +42,7 @@ struct PieceSelectReturns {
     int y;
 };
 
-class CheckersEngine : public Checkers::CheckersBoard {
+class CheckersEngine : public CheckersBoard {
     public:
         /************************************************ Constructors ***********************************************/
         CheckersEngine();
@@ -127,7 +127,7 @@ class CheckersEngine : public Checkers::CheckersBoard {
          * @Return: True (1) for is enemy, False (0) if on same team
          * @Note: True for (Red, White), (White, Red), (White, Black), (Black, White)
          */
-        virtual bool isEnemyPiece(const BaseBoard::Piece& src, const BaseBoard::Piece& to_compare) const;
+        virtual bool isEnemyPiece(const CheckersPiece& src, const CheckersPiece& to_compare) const;
 
         /**
          * @Brief: Helps place a player's pieces on the board correctly
