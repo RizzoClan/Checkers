@@ -410,7 +410,7 @@ bool CheckersEngine::isValidMoveDir(
     const int delta_y = (dest-src).y;
     const bool can_move_up = player.getPieceType() == BasicPieces::Red;
     const bool can_move_down = player.getPieceType() == BasicPieces::White;
-    const bool can_move_any = can_move_up && can_move_down; // only true for kings
+    const bool can_move_any = getPiece(src).getIsKinged(); // only true for kings
 
     // check all conditions vs actuality
     if (can_move_any) return true;

@@ -97,12 +97,12 @@ bool Board<PieceType>::insertPiece(const int x, const int y, BasicPieces type) {
 
 template <class PieceType>
 MoveReturns Board<PieceType>::movePiece(const int start_x, const int start_y, const int end_x, const int end_y) {
-    const Piece& src_piece = getBoard()[start_x][start_y];
-    Piece& dest_piece = getBoard()[end_x][end_y];
+    const PieceType& src_piece {getBoard()[start_x][start_y]};
+    PieceType& dest_piece {getBoard()[end_x][end_y]};
 
     if (!src_piece.isEmpty() && dest_piece.isEmpty()) {
         dest_piece = src_piece;
-        getBoard()[start_x][start_y].setType(BaseBoard::BasicPieces::Empty); // reset
+        getBoard()[start_x][start_y] = PieceType(); // reset
         return MoveReturns::Success;
     } else {
         return MoveReturns::Invalid;
