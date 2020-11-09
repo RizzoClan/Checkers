@@ -219,7 +219,11 @@ MoveReturns CheckersEngine::movePiece(
 
         // normal case -- only triggered at end of sequential jumps
         if (move_rtn == MoveReturns::Success) {
-            if (should_king_piece) kingPiece(dest_x, dest_y);
+            if (should_king_piece) {
+                cout << "Kinged " << BaseBoard::BoardCoord{dest_x,dest_y} 
+                    << " because it reached other end of board during turn" << endl;
+                kingPiece(dest_x, dest_y);
+            }
             return MoveReturns::Success;
         }
 
@@ -438,7 +442,7 @@ bool CheckersEngine::shouldKing(const int x, const int y) const {
 }
 
 bool CheckersEngine::kingPiece(const int x, const int y) {
-    return true; //stub
+    return getPiece(x,y).setIsKinged(true);
 }
 
 

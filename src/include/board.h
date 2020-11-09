@@ -57,6 +57,7 @@ class Board {
          */
         const PieceType& getPiece(int x, int y) const;
         const PieceType& getPiece(const BoardCoord& coord) const;
+        PieceType& getPiece(int x, int y); // used to actually change gotten piece
 
         // need const & non-const types of getBoard() -> one for editing elements, and one for reference only
         const std::vector<std::vector<PieceType>>& getBoard() const; // completely const

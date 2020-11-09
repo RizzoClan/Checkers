@@ -44,9 +44,15 @@ int Board<PieceType>::getHeight() const {
     return height;
 }
 
+// getPiece() functions
 template <class PieceType>
 const PieceType& Board<PieceType>::getPiece(const BoardCoord& coord) const {
     return getPiece(coord.x, coord.y);
+}
+
+template <class PieceType>
+PieceType& Board<PieceType>::getPiece(int x, int y) {
+    return getBoard()[x][y];
 }
 
 template <class PieceType>
