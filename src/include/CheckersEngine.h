@@ -163,6 +163,14 @@ class CheckersEngine : public CheckersBoard {
          * @Return: true if successful, false if otherwise 
          */
         bool kingPiece(const int x, const int y);
+
+        // helper function to determine which direction a piece can move
+        // can piece go down
+        bool canMoveDown(const CheckersPiece& piece_obj) const;
+        // can piece go up 
+        bool canMoveUp(const CheckersPiece& piece_obj) const;
+        // can piece go up and down
+        bool canMoveAny(const CheckersPiece& piece_obj) const;
 };
 
 } // end of Checkers namespace

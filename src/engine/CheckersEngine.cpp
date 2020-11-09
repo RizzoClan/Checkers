@@ -361,26 +361,35 @@ bool CheckersEngine::isJumpable(const int x, const int y, const int slope, const
 
 bool CheckersEngine::canAttack(const int src_x, const int src_y) const {
     // to be able to attack, must be have a adj enemy piece with a empty space behind it
-    // TODO: have to take direction of allowed travel into consideration eventually
-    //      -- considering all 4 directions
 
     // define temnp struct to make calling function 4 times easier
     struct JumpCombo {
-        JumpCombo(const int _slope, const int _is_upward) : slope(_slope), is_upward(_is_upward) {}
+        // constructor symolizing invalid jump direction
+        JumpCombo(const bool is_valid_jump) :
+            slope(0), is_upward(false), is_valid(is_valid_jump) {}
+
+        JumpCombo(const int _slope, const int _is_upward) : 
+            slope(_slope), is_upward(_is_upward), is_valid(true) {}
+
         const int slope;
         const bool is_upward;
+        const bool is_valid; // false if not valid jump direction based on piece
     };
 
+    const CheckersPiece& src_piece {getPiece(src_x, src_y)};
+
     // arrange in clockwise order from top-left
+    // define some combos as invalid (i.e. a red-pawn cannot go downward)
+    // kings can go any diagonal direction
     const JumpCombo possible_combos[4] = {
-        JumpCombo{-1, true},
-        JumpCombo{ 1, true},
-        JumpCombo{-1, false},
-        JumpCombo{ 1, false}
+        canMoveAny(src_piece) || canMoveUp(src_piece)   ? JumpCombo{-1, true}   : JumpCombo{false},
+        canMoveAny(src_piece) || canMoveDown(src_piece) ? JumpCombo{ 1, true}   : JumpCombo{false},
+        canMoveAny(src_piece) || canMoveUp(src_piece)   ? JumpCombo{-1, false}  : JumpCombo{false},
+        canMoveAny(src_piece) || canMoveDown(src_piece) ? JumpCombo{ 1, false}  : JumpCombo{false},
     };
 
     for (JumpCombo combo : possible_combos) {
-        if(isJumpable(src_x, src_y, combo.slope, combo.is_upward)) return true;
+        if(combo.is_valid && isJumpable(src_x, src_y, combo.slope, combo.is_upward)) return true;
     }
 
     // if non were jumpable, piece cannot attack
@@ -401,16 +410,12 @@ bool CheckersEngine::isValidMoveDir(
      * Red pieces can only move up (unless kinged)
      * White pieces can only move down (unless kinged)
      * y = [0-7] where 0 is top -- a move down has positive delta_yand vice versa
+     * if can_move_up/down but not both: automatically return false if moving opposite direction
      */
-
-    // TODO: implement "kingness"
-    // const bool move_1_dir = player.getPieceType() ? ;
-
-    // if can_move_up/down but not both, then automatically return false if moving opposite direction
     const int delta_y = (dest-src).y;
-    const bool can_move_up = player.getPieceType() == BasicPieces::Red;
-    const bool can_move_down = player.getPieceType() == BasicPieces::White;
-    const bool can_move_any = getPiece(src).getIsKinged(); // only true for kings
+    const bool can_move_up =    player.getPieceType() == BasicPieces::Red && canMoveUp(getPiece(src));
+    const bool can_move_down =  player.getPieceType() == BasicPieces::White  && canMoveDown(getPiece(src));
+    const bool can_move_any =   canMoveAny(getPiece(src)); // only true for kings
 
     // check all conditions vs actuality
     if (can_move_any) return true;
@@ -446,6 +451,27 @@ bool CheckersEngine::shouldKing(const int x, const int y) const {
 bool CheckersEngine::kingPiece(const int x, const int y) {
     return getPiece(x,y).setIsKinged(true);
 }
+
+/*
+    const bool can_move_down = player.getPieceType() == BasicPieces::White;
+    const bool can_move_up = player.getPieceType() == BasicPieces::Red;
+    const bool can_move_any = getPiece(src).getIsKinged(); // only true for kings
+*/
+
+// helper function to determine which direction a piece can move
+bool CheckersEngine::canMoveDown(const CheckersPiece& piece_obj) const {
+    return piece_obj.getType() == BasicPieces::White || piece_obj.getIsKinged();
+}
+
+bool CheckersEngine::canMoveUp(const CheckersPiece& piece_obj) const {
+    return piece_obj.getType() == BasicPieces::Red || piece_obj.getIsKinged();
+
+}
+
+bool CheckersEngine::canMoveAny(const CheckersPiece& piece_obj) const {
+    return piece_obj.getIsKinged();
+}
+
 
 
 }
