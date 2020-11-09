@@ -225,7 +225,6 @@ MoveReturns CheckersEngine::movePiece(
             to_move_x = dest_x;
             to_move_y = dest_y;
 
-            // TODO: implement helper to ask for user input about were to try moving...
             const PieceSelectReturns sel_dest {selectMoveDest(to_move_x, to_move_y)};
             dest_x = sel_dest.x;
             dest_y = sel_dest.y;
@@ -270,8 +269,6 @@ MoveReturns CheckersEngine::tryMove(const int start_x, const int start_y, const 
         //  check if there is a piece in dest or jumping over an enemy
         if (dest_piece.isEmpty() && (delta_y == 1 || delta_y == -1)) {
             // normal move into empty space
-            cout << "Moving" << createCoordStr(start_x, start_y) 
-                << "->" << createCoordStr(end_x, end_y) << endl;
             return Board::movePiece(start_x, start_y, end_x, end_y);
 
         } else if (!dest_piece.isEmpty()) {
