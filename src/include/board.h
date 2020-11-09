@@ -12,7 +12,6 @@
 // Our Includes
 #include "pieces.h"
 #include "PrintEnums.hpp"
-#include "SpecialPrints.h"
 
 namespace BaseBoard {
 
@@ -107,6 +106,7 @@ class Board {
         /**
          * @Brief: Function that describes how to print the inside char of an individual cell on the board
          * @Note: Overrite this to make print & << function print a cell differently
+         * @Note: Can also just override PieceType's operator<<
          */
         virtual void printCell(
             std::ostream& os, const Board& this_board, const int x, const int y) const;

@@ -223,6 +223,8 @@ MoveReturns CheckersEngine::movePiece(
                 cout << "Kinged " << BaseBoard::BoardCoord{dest_x,dest_y} 
                     << " because it reached other end of board during turn" << endl;
                 kingPiece(dest_x, dest_y);
+                // print updated board with king piece shown
+                cout << "Updated Board with King Piece: " << endl << *this << endl;
             }
             return MoveReturns::Success;
         }

@@ -10,6 +10,7 @@
 // Our Includes
 #include "constants.h"
 #include "pieces.h"
+#include "SpecialPrints.hpp"
 
 namespace Checkers {
 
@@ -32,6 +33,13 @@ class CheckersPiece : public BaseBoard::Piece {
         bool setIsKinged(bool new_state);
 
         /********************************************** Helper Functions **********************************************/
+
+        /************************************************* Operators *************************************************/
+        /**
+         * @Brief: Print out an individual piece
+         * @Note: Differs from parent in that it underlines king pieces
+         */
+        friend std::ostream& operator<<(std::ostream& os, const CheckersPiece& this_piece);
 
     private:
         // set to true if a piece reaches the other end of the board

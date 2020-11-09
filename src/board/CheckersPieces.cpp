@@ -35,5 +35,16 @@ bool CheckersPiece::setIsKinged(bool new_state) {
 
 /********************************************** Helper Functions **********************************************/
 
+/************************************************* Operators *************************************************/
+std::ostream& operator<<(std::ostream& os, const CheckersPiece& this_piece) {
+    const auto piece_repr {static_cast<char>(this_piece.getType())};
+    // cannot use ternary bc different types
+    if (this_piece.getIsKinged()) {
+        return os << Printing::underlineChar(piece_repr);
+    } else {
+        return os << piece_repr;
+    }
+}
+
 
 };
