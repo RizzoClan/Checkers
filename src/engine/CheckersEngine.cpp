@@ -206,13 +206,23 @@ MoveReturns CheckersEngine::movePiece(
         return MoveReturns::WrongDirection;
     }
 
+    /**
+     * https://en.wikipedia.org/wiki/Ultra_checkers#Upgrades
+     * only king a piece at end of successive movements
+     * keep bool that gets set true if needed and king at end of loop
+     */
+    bool should_king_piece = false;
     while (move_rtn != MoveReturns::Success) {
         // try to move the piece
         move_rtn = tryMove(to_move_x, to_move_y, dest_x, dest_y);
         cout << "Updated Board: " << endl << *this << endl;
 
-        // normal case
+        //  determine if should king the piece (maintain past values with or)
+        should_king_piece |= shouldKing(dest_x, dest_y);
+
+        // normal case -- only triggered at end of sequential jumps
         if (move_rtn == MoveReturns::Success) {
+            if (should_king_piece) kingPiece(dest_x, dest_y);
             return MoveReturns::Success;
         }
 
@@ -421,5 +431,18 @@ bool CheckersEngine::isValidMovePath(
             && abs(deltas.y/deltas.x) == 1 // only perform division when not dividing by zero
             ? true : false;
 } // end of Checkers namespace
+
+bool CheckersEngine::shouldKing(const int x, const int y) const {
+    // if reds reach top or whites reach bot
+    const BasicPieces piece_type = getPiece(x,y).getType();
+    return (piece_type == BasicPieces::Red && y == 0) || 
+        (piece_type == BasicPieces::White && y == getHeight())
+        ? true : false;
+}
+
+bool CheckersEngine::kingPiece(const int x, const int y) {
+    return true; //stub
+}
+
 
 }

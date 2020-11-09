@@ -151,6 +151,18 @@ class CheckersEngine : public BaseBoard::Board {
          */
         virtual bool isValidMovePath(const int src_x, const int src_y, const int dest_x, const int dest_y) const;
         virtual bool isValidMovePath(const BaseBoard::BoardCoord src, const BaseBoard::BoardCoord dest) const;
+
+        /**
+         * @Brief: Determines if piece should be crowned (i.e. reaches other end)
+         * @Return: True if reached other end and should be crowned(king piece), false otherwise
+         */
+        bool shouldKing(const int x, const int y) const;
+
+        /**
+         * @Brief: Crowns a piece (turns into King) that can move backwards
+         * @Return: true if successful, false if otherwise 
+         */
+        bool kingPiece(const int x, const int y);
 };
 
 } // end of Checkers namespace
