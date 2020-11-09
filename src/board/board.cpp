@@ -123,7 +123,17 @@ BaseBoard::BasicPieces Board<PieceType>::removePiece(const int x, const int y, c
     return removed_type;
 }
 
-// print
+/********************************************* Print Functions  *********************************************/
+template <class PieceType>
+std::string Board<PieceType>::printCell(
+    std::ostream& os, const Board<PieceType>& this_board,
+    const int x, const int y
+) const {
+    // os << static_cast<char>(this_board.getPiece(x,y).getType());
+    os << this_board.getPiece(x,y); // << overload handled by Piece object
+    // return os;
+}
+
 template <class PieceType>
 std::ostream&  Board<PieceType>::print(std::ostream& os, const Board<PieceType>& this_board) const {
     // multiply by 4 because each cell has "| # ...|"
@@ -136,7 +146,7 @@ std::ostream&  Board<PieceType>::print(std::ostream& os, const Board<PieceType>&
         os << top_bot_border << endl;
 
         for (int x = 0; x < this_board.getLength(); x++) {
-            os << "| " << static_cast<char>(this_board.getPiece(x,y).getType()) << " ";
+            os << "| " << this_board.printCell(os, this_board, x, y) << " ";
         }
 
         // print right most border when done with line

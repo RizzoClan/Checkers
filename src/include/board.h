@@ -12,6 +12,7 @@
 // Our Includes
 #include "pieces.h"
 #include "PrintEnums.hpp"
+#include "SpecialPrints.h"
 
 namespace BaseBoard {
 
@@ -103,6 +104,12 @@ class Board {
         virtual bool isEnemyPiece(const PieceType& src, const PieceType& to_compare) const = 0;
 
 
+        /**
+         * @Brief: Function that describes how to print the inside char of an individual cell on the board
+         * @Note: Overrite this to make print & << function print a cell differently
+         */
+        virtual std::string printCell(
+            std::ostream& os, const Board& this_board, const int x, const int y) const;
         /**
          * @Brief: Allow ostream to overwrite '<<' so it can be used to print board with cout
          * @HACK in order to work with template class:
