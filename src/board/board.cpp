@@ -124,14 +124,13 @@ BaseBoard::BasicPieces Board<PieceType>::removePiece(const int x, const int y, c
 }
 
 /********************************************* Print Functions  *********************************************/
+// print individual cell content
 template <class PieceType>
-std::string Board<PieceType>::printCell(
+void Board<PieceType>::printCell(
     std::ostream& os, const Board<PieceType>& this_board,
     const int x, const int y
 ) const {
-    // os << static_cast<char>(this_board.getPiece(x,y).getType());
     os << this_board.getPiece(x,y); // << overload handled by Piece object
-    // return os;
 }
 
 template <class PieceType>
@@ -146,7 +145,9 @@ std::ostream&  Board<PieceType>::print(std::ostream& os, const Board<PieceType>&
         os << top_bot_border << endl;
 
         for (int x = 0; x < this_board.getLength(); x++) {
-            os << "| " << this_board.printCell(os, this_board, x, y) << " ";
+            os << "| "; // print left border of cell
+            this_board.printCell(os, this_board, x, y); // print cell contents
+            os << " "; // print space to lead up to next left board
         }
 
         // print right most border when done with line
