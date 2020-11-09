@@ -19,22 +19,11 @@ int main() {
     // declare board object
     Checkers::CheckersEngine checkers_game;
 
-    bool rtn_code {true};
-
     cout << "Board Start: " << endl << checkers_game << endl;
 
-    rtn_code = checkers_game.movePiece(2,5, 3, 4) == BaseBoard::MoveReturns::Success; // no error
-    rtn_code = checkers_game.movePiece(3, 4, 2,5) == BaseBoard::MoveReturns::Success; // error
-    if (!rtn_code) {
-        cerr << "Error moving piece" << endl;
-    }
+    const BaseBoard::BasicTeams winner {checkers_game.play()};
 
-    // rtn_code = checkers_game.removePiece(1,1, BasicPieces::Empty);
-    // if (!rtn_code) {
-    //     cerr << "Error removing piece" << endl;
-    // }
-
-    // cout << "After Remove: " << endl << checkers_game << endl;
+    cout << "Winner: " << winner << endl;
 
     // complete program
     exit(EXIT_SUCCESS);

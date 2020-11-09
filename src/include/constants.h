@@ -37,6 +37,7 @@ enum class BasicTeams {
     Team2,
     Team3,
     Team4,
+    None,
     // some other types of team qualifications
     Red,
     White,

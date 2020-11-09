@@ -50,6 +50,14 @@ class CheckersEngine : public BaseBoard::Board {
 
 
         /********************************************** Board Functions **********************************************/
+
+        /**
+         * @Brief: Function that starts the execution of the checkers game
+         * @Return: Who the winner is (BaseBoard::BasicTeams::None = draw)
+         * @Note: Block main thread
+         */
+        virtual BaseBoard::BasicTeams play();
+
         /**
          * @Brief: Move a piece on the board and combines with parent move to chain moves as needed
          * @Args: start -> end
@@ -60,11 +68,13 @@ class CheckersEngine : public BaseBoard::Board {
 
         /**
          * @Brief: Ask user for coords to select a piece
+         * @Param: piece_type (default = Empty) -- only lets you select pieces of that type to move (Empty = any)
          * @Returns: PieceSelectReturns::Success for no problems,
          *      PieceSelectReturns::CannotMove for its not your piece,
          *      and PieceSelectReturns::Invalid for everything else
+         * @Note: If a piece_type is set, function keeps asking until valid input entered
          */
-        virtual PieceSelectReturns selectPiece();
+        virtual PieceSelectReturns selectPiece(const BaseBoard::BasicPieces piece_type=BaseBoard::BasicPieces::Empty);
 
         /**
          * @Brief: Ask user for coords for where to move a piece

@@ -40,14 +40,43 @@ CheckersEngine::~CheckersEngine() {
 
 /********************************************** Board Functions **********************************************/
 
-PieceSelectReturns CheckersEngine::selectPiece() {
-    cout << "Enter in (x,y) coordinate of piece to move (space seperated): ";
-    int x,y {};
-    cin >> x >> y;
-    cout << "You entered: (" << x << ',' << y << ')' << endl;
+BaseBoard::BasicTeams CheckersEngine::play() {
+    bool isStillPlaying = true;
+    CheckersPlayer& red_player {piece_to_player.at(BasicPieces::Red)};
+    CheckersPlayer& white_player {piece_to_player.at(BasicPieces::White)};
 
-    // stub -- TODO: need to first associate players with colors to say if it is an enemy
-    return PieceSelectReturns(SelectCodes::Success, x, y);
+    while (isStillPlaying) {
+        // start with darker peice (red)
+        cout << "Red Player's Move - ";
+        const PieceSelectReturns red_to_move {selectPiece(red_player.getPieceType())};
+        movePiece(red_to_move.x, red_to_move.y);
+        if (red_player.getPieceCount() == 0) return white_player.getTeam();
+
+        // next white piece goes
+        cout << "White Player's Move - ";
+        const PieceSelectReturns white_to_move {selectPiece(white_player.getPieceType())};
+        movePiece(white_to_move.x, white_to_move.y);
+        if (white_player.getPieceCount() == 0) return white_player.getTeam();
+    }
+
+    // if reach this point, it is a draw
+    return BaseBoard::BasicTeams::None;
+}
+
+// piece_type default to empty
+PieceSelectReturns CheckersEngine::selectPiece(const BaseBoard::BasicPieces piece_type) {
+    while (true) {
+        cout << "Enter in (x,y) coordinate of piece to move (space seperated): ";
+        int x,y {};
+        cin >> x >> y;
+        cout << "You entered: (" << x << ',' << y << ')' << endl;
+
+        if (piece_type == BaseBoard::BasicPieces::Empty || getPiece(x,y).getType() == piece_type) {
+            return PieceSelectReturns(SelectCodes::Success, x, y);
+        } else {
+            cerr << "Invalid piece selected, try again" << endl;
+        }
+    }
 }
 
 
