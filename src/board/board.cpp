@@ -82,7 +82,7 @@ MoveReturns Board::movePiece(const int start_x, const int start_y, const int end
 
     if (!src_piece.isEmpty() && dest_piece.isEmpty()) {
         dest_piece = src_piece;
-        getBoard()[start_x][start_y] = Piece(); // reset
+        getBoard()[start_x][start_y].setType(BaseBoard::BasicPieces::Empty); // reset
         return MoveReturns::Success;
     } else {
         return MoveReturns::Invalid;
@@ -96,7 +96,7 @@ BaseBoard::BasicPieces Board::removePiece(const BaseBoard::BoardCoord coord, con
 BaseBoard::BasicPieces Board::removePiece(const int x, const int y, const BasicPieces replace_with) {
     const BaseBoard::BasicPieces removed_type {getBoard()[x][y].getType()};
     if (removed_type != BasicPieces::Empty) {
-        getBoard()[x][y] = Piece(replace_with); // reset
+        getBoard()[x][y].setType(replace_with); // reset
     }
     return removed_type;
 }

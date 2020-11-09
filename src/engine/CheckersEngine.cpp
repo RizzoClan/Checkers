@@ -336,6 +336,9 @@ bool CheckersEngine::isJumpable(const int x, const int y, const int slope, const
     for (int adj_degree : {1, 2}) {
         const int dest_x = x + slope*adj_degree; // x +/-1 * adj_degree
         const int dest_y = y + vert_scale*adj_degree;
+        // prevent out of bounds error
+        if (dest_x < 0 || dest_y < 0 || dest_x >= getLength() || dest_y >= getHeight()) continue;
+
         const BaseBoard::Piece& adj_piece = getPiece(dest_x, dest_y);
         if (adj_degree == 1 && !isEnemyPiece(getPiece(x,y), adj_piece)) return false;
         else if (adj_degree == 2 && adj_piece.isEmpty()) return true;

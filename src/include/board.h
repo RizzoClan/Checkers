@@ -11,6 +11,7 @@
 
 // Our Includes
 #include "pieces.h"
+#include "PrintEnums.hpp"
 
 namespace BaseBoard {
 
