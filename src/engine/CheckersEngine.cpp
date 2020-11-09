@@ -92,10 +92,12 @@ PieceSelectReturns CheckersEngine::selectMoveDest(const int src_x, const int src
 
         int x,y {};
         cin >> x >> y;
-        cout << "You entered: (" << x << ',' << y << ')' << endl;
+        cout << "You entered: " << createCoordStr(x, y) << endl;
 
         // check if dest is already taken
-        const SelectCodes rtn_code = isEmpty(x,y) ? SelectCodes::Success : SelectCodes::CannotMove;
+        // and check if is valid move
+        const SelectCodes rtn_code = isEmpty(x,y) && isValidMovePath(src_x, src_y, x, y) ?
+            SelectCodes::Success : SelectCodes::CannotMove;
 
         if (rtn_code == SelectCodes::Success) {
             // print src->dest
@@ -255,7 +257,8 @@ MoveReturns CheckersEngine::tryMove(const int start_x, const int start_y, const 
      */
     const int delta_y = end_y - start_y;
     const int delta_x = end_x - start_x;
-    const float move_slope = delta_y / delta_x;
+    // prevent divide by zero by setting to zero so diag_move is false 
+    const float move_slope =  delta_x != 0 ?  delta_y / delta_x : 0;
     const bool diag_move = (move_slope == -1 || move_slope == 1);
 
     if (diag_move) {
@@ -279,13 +282,15 @@ MoveReturns CheckersEngine::tryMove(const int start_x, const int start_y, const 
             (delta_y == 2 || delta_y == -2) && (delta_x == 2 || delta_x == -2) && // jumped
             isEnemyPiece(src_piece, curr_board[start_x+delta_x/2][start_y+delta_y/2])
         ) {
-            cout << "Jumped over enemy piece" << endl;
 
             // jumped over a enemy piece
             // thus, move + remove jumped over piece
-            if(removePiece(start_x+delta_x/2, start_y+delta_y/2)) {
+            const BaseBoard::BoardCoord to_remove{start_x+delta_x/2, start_y+delta_y/2};
+            cout << "Removing jumped over enemy piece: " << to_remove << endl;
+            const BaseBoard::BasicPieces removed_type {removePiece(to_remove)};
+            if(removed_type != BaseBoard::BasicPieces::Empty) {
                 // successfully removed (decrement piece count)
-                CheckersPlayer& to_decr {piece_to_player.at(dest_piece.getType())};
+                CheckersPlayer& to_decr {piece_to_player.at(removed_type)};
                 if (!to_decr.setPieceCount(to_decr.getPieceCount()-1)) {
                     // count--
                     cerr << "Failed to decrement piece counter" << endl;
@@ -400,5 +405,21 @@ bool CheckersEngine::isValidMoveDir(
     else return true;
 }
 
+bool CheckersEngine::isValidMovePath(
+    const int src_x, const int src_y, const int dest_x, const int dest_y
+) const {
+    return isValidMovePath(
+        BaseBoard::BoardCoord{src_x, src_y}, BaseBoard::BoardCoord{dest_x, dest_y});
+}
+
+bool CheckersEngine::isValidMovePath(
+    const BaseBoard::BoardCoord src, const BaseBoard::BoardCoord dest
+) const {
+    const BaseBoard::BoardCoord deltas {dest - src};
+    return     abs(deltas.x) != 0
+            && abs(deltas.y) != 0
+            && abs(deltas.y/deltas.x) == 1 // only perform division when not dividing by zero
+            ? true : false;
 } // end of Checkers namespace
 
+}

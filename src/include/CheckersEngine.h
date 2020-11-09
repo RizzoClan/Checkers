@@ -143,6 +143,14 @@ class CheckersEngine : public BaseBoard::Board {
          */
         virtual bool isValidMoveDir(const CheckersPlayer& player, const BaseBoard::BoardCoord src, 
             const BaseBoard::BoardCoord dest) const;
+
+        /**
+         * @Brief: Checks if move is valid based on src->dest slope (i.e. is it diagonal)
+         * @Return: true = is okay, false = invalid move
+         * @Note: Invalid could mean player tried to move piece in a cardinal direction
+         */
+        virtual bool isValidMovePath(const int src_x, const int src_y, const int dest_x, const int dest_y) const;
+        virtual bool isValidMovePath(const BaseBoard::BoardCoord src, const BaseBoard::BoardCoord dest) const;
 };
 
 } // end of Checkers namespace

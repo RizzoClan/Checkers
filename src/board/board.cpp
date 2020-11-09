@@ -89,13 +89,16 @@ MoveReturns Board::movePiece(const int start_x, const int start_y, const int end
     }
 }
 
-bool Board::removePiece(const int x, const int y, const BasicPieces replace_with) {
-    if (getBoard()[x][y].getType() == BasicPieces::Empty) {
-        return false; // nothing to remove
-    } else {
+BaseBoard::BasicPieces Board::removePiece(const BaseBoard::BoardCoord coord, const BasicPieces replace_with) {
+    return removePiece(coord.x, coord.y, replace_with);
+}
+
+BaseBoard::BasicPieces Board::removePiece(const int x, const int y, const BasicPieces replace_with) {
+    const BaseBoard::BasicPieces removed_type {getBoard()[x][y].getType()};
+    if (removed_type != BasicPieces::Empty) {
         getBoard()[x][y] = Piece(replace_with); // reset
-        return true;
     }
+    return removed_type;
 }
 
 // print

@@ -77,9 +77,12 @@ class Board {
         /**
          * @Brief: Removes a piece on the board
          * @Args: replace_with: (Defaults to empty), use this to replace removed piece with a specific one
-         * @Return: True (1) for success, False (0) if spot was empty
+         * @Return: The piece type that was removed
          */
-        virtual bool removePiece(const int x, const int y, const BasicPieces replace_with=BasicPieces::Empty);
+        virtual BaseBoard::BasicPieces removePiece(
+            const int x, const int y, const BasicPieces replace_with=BasicPieces::Empty);
+        virtual BaseBoard::BasicPieces removePiece(
+            const BaseBoard::BoardCoord coord, const BasicPieces replace_with=BasicPieces::Empty);
 
         /**
          * @Brief: Move a piece on the board
