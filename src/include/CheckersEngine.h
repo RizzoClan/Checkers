@@ -16,7 +16,7 @@
 // 3rd Party Includes
 
 // Our Includes
-#include "Board.h"
+#include "CheckersBoard.h"
 #include "constants.h"
 #include "CheckersPlayer.h"
 #include "PrintEnums.hpp"
@@ -42,7 +42,7 @@ struct PieceSelectReturns {
     int y;
 };
 
-class CheckersEngine : public BaseBoard::Board {
+class CheckersEngine : public Checkers::CheckersBoard {
     public:
         /************************************************ Constructors ***********************************************/
         CheckersEngine();

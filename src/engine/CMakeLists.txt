@@ -4,3 +4,7 @@ add_library(CheckersEngine
     CheckersPlayer.cpp
 ) 
 
+# need compiled .cpp of Board objects
+target_link_libraries(CheckersEngine
+    CheckersBoard
+)

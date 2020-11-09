@@ -16,10 +16,7 @@ namespace Checkers {
 /**************************************************** Constructors ***************************************************/
 CheckersEngine::CheckersEngine()
     // construct parent
-    : Board(
-        Checkers::Constants::standard_checkers_length,
-        Checkers::Constants::standard_checkers_height
-    )
+    : CheckersBoard()
 
     // create players (teams are red and white)
     // map the different colors to their corresponding elements in the array
