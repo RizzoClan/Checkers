@@ -102,6 +102,7 @@ class Board {
          */
         virtual bool isEnemyPiece(const PieceType& src, const PieceType& to_compare) const = 0;
 
+        virtual bool isOutOfBounds(const int x, const int y) const;
 
         /**
          * @Brief: Function that describes how to print the inside char of an individual cell on the board

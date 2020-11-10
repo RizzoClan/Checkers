@@ -63,10 +63,14 @@ BaseBoard::BasicTeams CheckersEngine::play() {
 // piece_type default to empty
 PieceSelectReturns CheckersEngine::selectPiece(const BaseBoard::BasicPieces piece_type) {
     while (true) {
+        // fix for entering in a string & causing infinite loop
         cout << "Enter in (x,y) coordinate of piece to move (space seperated): ";
-        int x,y {};
-        cin >> x >> y;
+        char x_buf, y_buf;
+        cin >> x_buf >> y_buf;
+        const int x {static_cast<int>(x_buf)};
+        const int y {static_cast<int>(y_buf)};
         cout << "You entered: (" << x << ',' << y << ')' << endl;
+
 
         if (piece_type == BaseBoard::BasicPieces::Empty || getPiece(x,y).getType() == piece_type) {
             return PieceSelectReturns(SelectCodes::Success, x, y);
@@ -347,7 +351,7 @@ bool CheckersEngine::isJumpable(const int x, const int y, const int slope, const
         const int dest_x = x + slope*adj_degree; // x +/-1 * adj_degree
         const int dest_y = y + vert_scale*adj_degree;
         // prevent out of bounds error
-        if (dest_x < 0 || dest_y < 0 || dest_x >= getLength() || dest_y >= getHeight()) continue;
+        if (isOutOfBounds(dest_x, dest_y)) continue;
 
         const CheckersPiece& adj_piece = getPiece(dest_x, dest_y);
         if (adj_degree == 1 && !isEnemyPiece(getPiece(x,y), adj_piece)) return false;

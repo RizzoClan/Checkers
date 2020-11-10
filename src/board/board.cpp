@@ -85,6 +85,12 @@ bool Board<PieceType>::isEmpty(const int x, const int y) const {
 }
 
 template <class PieceType>
+bool Board<PieceType>::isOutOfBounds(const int x, const int y) const {
+    return x < 0 || y < 0 || x >= getLength() ||  || y >= getHeight();
+}
+
+
+template <class PieceType>
 bool Board<PieceType>::insertPiece(const int x, const int y, BasicPieces type) {
     // check if spot is empty
     if (getBoard()[x][y].isEmpty()) {
