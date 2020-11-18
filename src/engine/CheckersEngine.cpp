@@ -65,14 +65,19 @@ PieceSelectReturns CheckersEngine::selectPiece(const BaseBoard::BasicPieces piec
     while (true) {
         // fix for entering in a string & causing infinite loop
         cout << "Enter in (x,y) coordinate of piece to move (space seperated): ";
-        char x_buf, y_buf;
+        int x_buf, y_buf;
         cin >> x_buf >> y_buf;
         const int x {static_cast<int>(x_buf)};
         const int y {static_cast<int>(y_buf)};
         cout << "You entered: (" << x << ',' << y << ')' << endl;
+        // clear input and output fields for next go around
+        cin.clear();
+        cout.clear();
 
-
-        if (piece_type == BaseBoard::BasicPieces::Empty || getPiece(x,y).getType() == piece_type) {
+        // check to make sure is inside first
+        if (isOutOfBounds(x,y)) {
+            cerr << "Selected piece outside of board, try again" << endl;
+        } else if (piece_type == BaseBoard::BasicPieces::Empty || getPiece(x,y).getType() == piece_type) {
             return PieceSelectReturns(SelectCodes::Success, x, y);
         } else {
             cerr << "Invalid piece selected, try again" << endl;
@@ -198,6 +203,8 @@ MoveReturns CheckersEngine::movePiece(
     int dest_x = end_x; 
     int dest_y = end_y; 
 
+    // Note: might need to catch BaseBoard::OutsideBoardException
+    // (should be handled by user input functions)
     const BasicPieces& src_type = getPiece(to_move_x, to_move_y).getType();
     const CheckersPlayer& src_player = piece_to_player.at(src_type);
     if (!isValidMoveDir(
