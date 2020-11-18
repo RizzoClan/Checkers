@@ -46,17 +46,20 @@ int Board<PieceType>::getHeight() const {
 
 // getPiece() functions
 template <class PieceType>
-const PieceType& Board<PieceType>::getPiece(const BoardCoord& coord) const {
+const PieceType& Board<PieceType>::getPiece(const BoardCoord& coord) const noexcept(false) {
     return getPiece(coord.x, coord.y);
 }
 
 template <class PieceType>
-PieceType& Board<PieceType>::getPiece(int x, int y) {
+PieceType& Board<PieceType>::getPiece(int x, int y)  noexcept(false) {
+    if (isOutOfBounds(x,y)) {
+        throw OutsideBoardException();
+    }
     return getBoard()[x][y];
 }
 
 template <class PieceType>
-const PieceType& Board<PieceType>::getPiece(int x, int y) const {
+const PieceType& Board<PieceType>::getPiece(int x, int y) const  noexcept(false) {
     return getBoard()[x][y];
 }
 

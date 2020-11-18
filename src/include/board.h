@@ -6,6 +6,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <exception>
 
 // 3rd Party Includes
 
@@ -14,6 +15,19 @@
 #include "PrintEnums.hpp"
 
 namespace BaseBoard {
+
+
+/**
+ * used to represent an empty peice to prevent returning a temp local object
+ * try-catch this exception to catch accessing errors
+ */
+struct OutsideBoardException : public std::exception
+{
+    const char * what () const throw ()
+    {
+        return "Getting Piece Outside Board";
+    }
+};
 
 struct BoardCoord {
     BoardCoord(const int x, const int y) : x(x), y(y) {}
@@ -54,10 +68,12 @@ class Board {
          * @Brief: Get the piece at a given cell
          * @Args: x & y are the coordinates
          * @Note: Used in engines & logic
+         * @Throws: OutsideBoardException if getting a piece outside of board
          */
-        const PieceType& getPiece(int x, int y) const;
-        const PieceType& getPiece(const BoardCoord& coord) const;
-        PieceType& getPiece(int x, int y); // used to actually change gotten piece
+        const PieceType& getPiece(int x, int y) const noexcept(false);
+        const PieceType& getPiece(const BoardCoord& coord) const noexcept(false);
+        // used to actually change gotten piece
+        PieceType& getPiece(int x, int y) noexcept(false);
 
         // need const & non-const types of getBoard() -> one for editing elements, and one for reference only
         const std::vector<std::vector<PieceType>>& getBoard() const; // completely const
