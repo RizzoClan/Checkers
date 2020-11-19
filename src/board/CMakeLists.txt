@@ -2,5 +2,7 @@
 add_library(CheckersBoard
     board.cpp
     pieces.cpp
+    CheckersPieces.cpp
+    CheckersBoard.cpp
 ) 
 

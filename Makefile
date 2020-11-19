@@ -15,7 +15,6 @@ build: ./build/Makefile
 debug: ./build/Makefile
 	@ $(MAKE) -j`nproc` -C build
 
-# TODO: actually implement release = optimized
 .PHONY: release
 release: ./release/Makefile
 	@ $(MAKE) -j`nproc` -C release

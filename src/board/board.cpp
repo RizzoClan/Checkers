@@ -4,113 +4,163 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
+namespace BaseBoard {
+
 /**************************************************** Constructors ***************************************************/
-Board::Board(const int new_length, const int new_height)
+template <class PieceType>
+Board<PieceType>::Board(const int new_length, const int new_height)
     : length(new_length)
     , height(new_height)
     // create 2D vector initialized to 0
-    , board_pieces(getLength(), std::vector<Piece>(getHeight(), Piece()))
+    , board_pieces(getLength(), std::vector<PieceType>(getHeight(), PieceType()))
 
 {
 
 }
 
 
-Board::~Board() {
+template <class PieceType>
+Board<PieceType>::~Board() {
 }
 
 /******************************************** Getters and Setters ********************************************/
-void Board::setLength(const int new_length) {
+template <class PieceType>
+void Board<PieceType>::setLength(const int new_length) {
     length = new_length;
 }
 
-void Board::setHeight(const int new_height) {
+template <class PieceType>
+void Board<PieceType>::setHeight(const int new_height) {
     height = new_height;
 }
 
-int Board::getLength() const {
+template <class PieceType>
+int Board<PieceType>::getLength() const {
     return length;
 }
 
-int Board::getHeight() const {
+template <class PieceType>
+int Board<PieceType>::getHeight() const {
     return height;
 }
 
-const Piece& Board::getPiece(int x, int y) const {
+// getPiece() functions
+template <class PieceType>
+const PieceType& Board<PieceType>::getPiece(const BoardCoord& coord) const noexcept(false) {
+    return getPiece(coord.x, coord.y);
+}
+
+template <class PieceType>
+PieceType& Board<PieceType>::getPiece(int x, int y)  noexcept(false) {
+    if (isOutOfBounds(x,y)) {
+        throw OutsideBoardException();
+    }
+    return getBoard()[x][y];
+}
+
+template <class PieceType>
+const PieceType& Board<PieceType>::getPiece(int x, int y) const  noexcept(false) {
     return getBoard()[x][y];
 }
 
 
 // const and non-const getBoard functions
-const std::vector<std::vector<Piece>>& Board::getBoard() const { return board_pieces; }
-std::vector<std::vector<Piece>>& Board::getBoard() { return board_pieces; }
+template <class PieceType>
+const std::vector<std::vector<PieceType>>& Board<PieceType>::getBoard() const { return board_pieces; }
+template <class PieceType>
+std::vector<std::vector<PieceType>>& Board<PieceType>::getBoard() { return board_pieces; }
 
 
 /********************************************* Board Functions  *********************************************/
-bool Board::isEmpty(const int x, const int y) const {
+template <class PieceType>
+bool Board<PieceType>::resetBoard() {
+    for (auto& row : getBoard()) {
+        for (auto& cell : row) {
+            cell = PieceType();
+        }
+    }
+    return true;
+}
+
+template <class PieceType>
+bool Board<PieceType>::isEmpty(const int x, const int y) const {
     return getBoard()[x][y].isEmpty();
 }
 
-bool Board::insertPiece(const int x, const int y, BasicPieces type) {
+template <class PieceType>
+bool Board<PieceType>::isOutOfBounds(const int x, const int y) const {
+    return x < 0 || y < 0 || x >= getLength() || y >= getHeight();
+}
+
+
+template <class PieceType>
+bool Board<PieceType>::insertPiece(const int x, const int y, BasicPieces type) {
     // check if spot is empty
     if (getBoard()[x][y].isEmpty()) {
-        getBoard()[x][y].set_type(type);
+        getBoard()[x][y].setType(type);
         return true;
     } else {
         return false;
     }
 }
 
-MoveReturns Board::movePiece(const int start_x, const int start_y, const int end_x, const int end_y) {
-    const Piece& src_piece = getBoard()[start_x][start_y];
-    Piece& dest_piece = getBoard()[end_x][end_y];
+template <class PieceType>
+MoveReturns Board<PieceType>::movePiece(const int start_x, const int start_y, const int end_x, const int end_y) {
+    const PieceType& src_piece {getBoard()[start_x][start_y]};
+    PieceType& dest_piece {getBoard()[end_x][end_y]};
 
     if (!src_piece.isEmpty() && dest_piece.isEmpty()) {
         dest_piece = src_piece;
-        getBoard()[start_x][start_y] = Piece(); // reset
+        getBoard()[start_x][start_y] = PieceType(); // reset
         return MoveReturns::Success;
     } else {
         return MoveReturns::Invalid;
     }
 }
 
-bool Board::removePiece(const int x, const int y, const BasicPieces replace_with) {
-    if (getBoard()[x][y].get_type() == BasicPieces::Empty) {
-        return false; // nothing to remove
-    } else {
-        getBoard()[x][y] = Piece(replace_with); // reset
-        return true;
-    }
+template <class PieceType>
+BaseBoard::BasicPieces Board<PieceType>::removePiece(const BaseBoard::BoardCoord coord, const BasicPieces replace_with) {
+    return removePiece(coord.x, coord.y, replace_with);
 }
 
-// print
-std::ostream& operator<<(std::ostream& os, const Board& this_board) {
+template <class PieceType>
+BaseBoard::BasicPieces Board<PieceType>::removePiece(const int x, const int y, const BasicPieces replace_with) {
+    const BaseBoard::BasicPieces removed_type {getBoard()[x][y].getType()};
+    if (removed_type != BasicPieces::Empty) {
+        getBoard()[x][y].setType(replace_with); // reset
+    }
+    return removed_type;
+}
+
+/********************************************* Print Functions  *********************************************/
+// print individual cell content
+template <class PieceType>
+void Board<PieceType>::printCell(
+    std::ostream& os, const Board<PieceType>& this_board,
+    const int x, const int y
+) const {
+    os << this_board.getPiece(x,y); // << overload handled by Piece object
+}
+
+template <class PieceType>
+std::ostream&  Board<PieceType>::print(std::ostream& os, const Board<PieceType>& this_board) const {
     // multiply by 4 because each cell has "| # ...|"
     // extra on right is to round off border
     std::string top_bot_border {std::string(this_board.getLength()*4, '-') + '-'};
 
-    // count row to print for board
-    int row {0};
-
-    for(auto& col_vec : this_board.getBoard()) {
-
+    // increment y's first to print one row at a time
+    for (int y = 0; y < this_board.getHeight(); y++) {
         // print the top border between rows (print the char for each col)
         os << top_bot_border << endl;
 
-        for (auto& piece : col_vec) {
-            os << "| " << static_cast<char>(piece.get_type()) << " ";
+        for (int x = 0; x < this_board.getLength(); x++) {
+            os << "| "; // print left border of cell
+            this_board.printCell(os, this_board, x, y); // print cell contents
+            os << " "; // print space to lead up to next left board
         }
-        /*// reverse vector to print correctly
-        for (int i=col_vec.size()-1; i >= 0; i--) {
-            os << "| " << static_cast<char>(col_vec[i].get_type()) << " ";
-        }
-        */
 
         // print right most border when done with line
-        os << "| " << row << endl;
-
-        // decrement row counter
-        ++row;
+        os << "| " << y << endl;
     }
     // print the bottom border at end
     os << top_bot_border << endl;
@@ -127,6 +177,10 @@ std::ostream& operator<<(std::ostream& os, const Board& this_board) {
 
 /********************************************* Helper Functions  *********************************************/
 
-std::string Board::createCoordStr(const int x, const int y) const {
+template <class PieceType>
+std::string Board<PieceType>::createCoordStr(const int x, const int y) const {
     return " (" + std::to_string(x) + ',' + std::to_string(y) + ") ";
 }
+
+} // end of BaseBoard namespace
+

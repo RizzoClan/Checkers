@@ -10,6 +10,8 @@
 // Our Includes
 #include "constants.h"
 
+namespace BaseBoard {
+
 class Piece {
     public:
         /************************************************ Constructors ***********************************************/
@@ -25,8 +27,8 @@ class Piece {
         virtual ~Piece();
 
         /******************************************** Getters and Setters ********************************************/
-        BasicPieces get_type() const;
-        void set_type(const BasicPieces new_type);
+        BasicPieces getType() const;
+        bool setType(const BasicPieces new_type);
 
         /************************************************* Operators *************************************************/
         bool operator==(const Piece& to_compare) const;
@@ -44,5 +46,7 @@ class Piece {
         BasicPieces piece_type;
 
 };
+
+} // end of BaseBoard namespace
 
 #endif

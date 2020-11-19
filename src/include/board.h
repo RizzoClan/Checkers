@@ -6,18 +6,51 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <exception>
 
 // 3rd Party Includes
 
 // Our Includes
 #include "pieces.h"
+#include "PrintEnums.hpp"
+
+namespace BaseBoard {
+
+
+/**
+ * used to represent an empty peice to prevent returning a temp local object
+ * try-catch this exception to catch accessing errors
+ */
+struct OutsideBoardException : public std::exception
+{
+    const char * what () const throw ()
+    {
+        return "Getting Piece Outside Board";
+    }
+};
 
 struct BoardCoord {
     BoardCoord(const int x, const int y) : x(x), y(y) {}
+
+    // printing
+    friend std::ostream& operator<<(std::ostream& os, const BoardCoord& this_coord) {
+        return os << '(' << this_coord.x << ',' << this_coord.y << ')';
+    };
+
+    // arithmetic
+    friend BoardCoord operator+(const BoardCoord& coord1, const BoardCoord& coord2) {
+        return BoardCoord{(coord1.x + coord2.x), (coord1.y + coord2.y)};
+    }
+    friend BoardCoord operator-(const BoardCoord& coord1, const BoardCoord& coord2) {
+        return BoardCoord{(coord1.x - coord2.x), (coord1.y - coord2.y)};
+    }
+
+    // actual coordinates
     int x;
     int y;
 };
 
+template <class PieceType>
 class Board {
     public:
         /************************************************ Constructors ***********************************************/
@@ -35,14 +68,24 @@ class Board {
          * @Brief: Get the piece at a given cell
          * @Args: x & y are the coordinates
          * @Note: Used in engines & logic
+         * @Throws: OutsideBoardException if getting a piece outside of board
          */
-        const Piece& getPiece(int x, int y) const;
+        const PieceType& getPiece(int x, int y) const noexcept(false);
+        const PieceType& getPiece(const BoardCoord& coord) const noexcept(false);
+        // used to actually change gotten piece
+        PieceType& getPiece(int x, int y) noexcept(false);
 
         // need const & non-const types of getBoard() -> one for editing elements, and one for reference only
-        const std::vector<std::vector<Piece>>& getBoard() const; // completely const
-        std::vector<std::vector<Piece>>& getBoard(); // not const
+        const std::vector<std::vector<PieceType>>& getBoard() const; // completely const
+        std::vector<std::vector<PieceType>>& getBoard(); // not const
 
         /********************************************** Board Functions **********************************************/
+
+        /**
+         * @Brief: Wipe the board back to default
+         * @Return: true if successful, false if failure
+         */
+        virtual bool resetBoard();
 
         /**
          * @Brief: Insert a piece on the board
@@ -53,9 +96,12 @@ class Board {
         /**
          * @Brief: Removes a piece on the board
          * @Args: replace_with: (Defaults to empty), use this to replace removed piece with a specific one
-         * @Return: True (1) for success, False (0) if spot was empty
+         * @Return: The piece type that was removed
          */
-        virtual bool removePiece(const int x, const int y, const BasicPieces replace_with=BasicPieces::Empty);
+        virtual BaseBoard::BasicPieces removePiece(
+            const int x, const int y, const BasicPieces replace_with=BasicPieces::Empty);
+        virtual BaseBoard::BasicPieces removePiece(
+            const BaseBoard::BoardCoord coord, const BasicPieces replace_with=BasicPieces::Empty);
 
         /**
          * @Brief: Move a piece on the board
@@ -70,13 +116,26 @@ class Board {
          * @Args: to_compare: Piece that is being check if is enemy to src
          * @Return: True (1) for is enemy, False (0) if on same team
          */
-        virtual bool isEnemyPiece(const Piece& src, const Piece& to_compare) const = 0;
+        virtual bool isEnemyPiece(const PieceType& src, const PieceType& to_compare) const = 0;
 
+        virtual bool isOutOfBounds(const int x, const int y) const;
 
         /**
-         * @Brief: Allow ostream to overwrite '<<' so it can be used to print board with cout
+         * @Brief: Function that describes how to print the inside char of an individual cell on the board
+         * @Note: Overrite this to make print & << function print a cell differently
+         * @Note: Can also just override PieceType's operator<<
          */
-        friend std::ostream& operator<<(std::ostream& os, const Board& this_board);
+        virtual void printCell(
+            std::ostream& os, const Board& this_board, const int x, const int y) const;
+        /**
+         * @Brief: Allow ostream to overwrite '<<' so it can be used to print board with cout
+         * @HACK in order to work with template class:
+         *      inline << function with a reference to "print" class method that can be overriden
+         */
+        virtual std::ostream& print(std::ostream& os, const Board& this_board) const;
+        friend std::ostream& operator<<(std::ostream& os, const Board& this_board) {
+            return this_board.print(os, this_board);
+        }
 
         bool isEmpty(const int x, const int y) const;
 
@@ -84,7 +143,7 @@ class Board {
         int length; // x
         int height; // y
         // board needs 2D array to represent all pieces
-        std::vector<std::vector<Piece>> board_pieces;
+        std::vector<std::vector<PieceType>> board_pieces;
 
     protected:
         /********************************************** Helper Functions **********************************************/
@@ -94,5 +153,8 @@ class Board {
          */
         std::string createCoordStr(const int x, const int y) const;
 };
+
+} // end of BaseBoard namespace
+
 
 #endif

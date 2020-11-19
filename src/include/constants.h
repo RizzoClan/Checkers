@@ -1,9 +1,8 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-// standard checkers board length
-const int standard_checkers_length {8};
-const int standard_checkers_height {8};
+
+namespace BaseBoard {
 
 /**
  * @Brief: Enum containing basic piece types
@@ -27,7 +26,39 @@ enum class BasicPieces : char {
 enum class MoveReturns {
     Success = 0,
     Invalid = -1,
-    MoveAgain = 1
+    MoveAgain = 1,
+    NotYourPiece,
+    WrongDirection
 };
+
+// generally games have only 1-4 teams/players
+enum class BasicTeams {
+    Team1,
+    Team2,
+    Team3,
+    Team4,
+    None,
+    // some other types of team qualifications
+    Red,
+    White,
+    Black
+};
+
+} // end of BaseBoard namespace
+
+namespace Checkers {
+    namespace Constants {
+
+        // start off with 12 pieces
+        const int max_player_pieces {12};
+        const int max_pieces {max_player_pieces*2};
+        
+        // standard checkers board length
+        const int standard_checkers_length {8};
+        const int standard_checkers_height {8};
+
+    } // end of Checkers::Constants
+
+} // end of Checkers namespace
 
 #endif
